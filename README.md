@@ -1,4 +1,4 @@
-# [your app name here]
+# Buylo
 
 CodePath WEB103 Final Project
 
@@ -10,7 +10,7 @@ Designed and developed by: Raul Chavez, Daminda Dinesh, Jose Calderon, Alex Rozi
 
 ### Description and Purpose
 
-[AppName] is a full-stack e-commerce website where shoppers can browse products, view details, search for items, add products to a cart, and place an order. Store managers can also manage the inventory by adding, editing, and removing products.
+Buylo is a full-stack e-commerce website where shoppers can browse products, view details, search for items, add products to a cart, and place an order. Store managers can also manage the inventory by adding, editing, and removing products.
 
 The purpose of this project is to build a simple online shopping experience that feels realistic but is still manageable for our team. We wanted a project that lets us practice both frontend and backend development while working with features people actually use in real life.
 

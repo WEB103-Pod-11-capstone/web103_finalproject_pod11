@@ -9,6 +9,8 @@ Reference the Writing User Stories final project guide in the course portal for 
 
 ## Draft User Stories
 
+**Shopper Stories**
+
 1. **Browse Products:** As a Shopper, I want to browse a list of all products so that I can see what is available for purchase.
 2. **View Details:** As a Shopper, I want to click on a product image to view its full description and price so I can make an informed decision.
 3. **Add to Cart:** As a Shopper, I want to add items to a cart so that I can group my intended purchases together.
@@ -21,6 +23,8 @@ Reference the Writing User Stories final project guide in the course portal for 
 10. **Update Quantity:** As a Shopper, I want to update the quantity of an item in my cart so that I can control how many I want to buy.
 11. **View Cart:** As a Shopper, I want to view my cart before buying so that I can review my order.
 12. **Stock Status:** As a Shopper, I want to see whether an item is in stock so that I know if I can purchase it.
+
+**Store Manager Stories**
 
 13. **Admin Access:** As a Store Manager, I want to log in to a restricted dashboard so that I can manage the inventory safely.
 14. **Add Inventory:** As a Store Manager, I want to add new products (title, price, image URL) so that the catalog stays up to date.

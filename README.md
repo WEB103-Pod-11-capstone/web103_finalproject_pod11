@@ -39,13 +39,13 @@ Backend:
 
 ### Product Catalog
 
-Shoppers can browse a list of all available products.
+Shoppers can browse a list of all available products, displayed in a grid featuring images, prices, and brief titles.
 
 [gif goes here]
 
 ### Product Details
 
-Shoppers can click on a product to view its description, image, price, and stock status.
+A dedicated view is displayed for each item when shoppers click on a product. This view includes an in-depth description, image, price, stock status, and an 'Add to Cart' button.
 
 [gif goes here]
 
@@ -63,7 +63,7 @@ Shoppers can filter products by category to narrow down their choices.
 
 ### Shopping Cart
 
-Shoppers can add items to a cart and keep track of products they want to buy.
+Shoppers can add items to a cart and keep track of products they want to buy. 
 
 [gif goes here]
 

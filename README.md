@@ -45,7 +45,7 @@ Shoppers can browse a list of all available products, displayed in a grid featur
 
 ### Product Details
 
-A dedicated view is displayed for each item when shoppers click on a product. This view includes an in-depth description, image, price, stock status, and an 'Add to Cart' button.
+Shoppers can view dedicated product details, including in-depth descriptions, pricing, and stock status, to make informed purchasing decisions before adding items to their cart.
 
 [gif goes here]
 

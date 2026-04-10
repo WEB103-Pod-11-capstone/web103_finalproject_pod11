@@ -150,4 +150,4 @@
 
 High-fidelity (hi-fi) wireframes
 Product Catalog
-[Product Catalog](../images/wireframes/product_catalog.png)
+![Product Catalog](../images/wireframes/product_catalog.png)

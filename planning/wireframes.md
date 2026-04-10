@@ -148,6 +148,27 @@
 +-------------------------------------------------------------+
 ```
 
-High-fidelity (hi-fi) wireframes
-Product Catalog
+# High-fidelity (hi-fi) wireframes
+## Product Catalog
 ![Product Catalog](../images/wireframes/product_catalog.png)
+
+## Product Detail Page
+![Product Detail](../images/wireframes/product_detail.png)
+
+## Shopping Cart
+![Shopping Cart](../images/wireframes/cart_pge.png)
+
+## Checkout Flow (One Page)
+![Checkout](../images/wireframes/checkout.png)
+
+## Manager Dashboard
+![Manager Dashboard](../images/wireframes/admn-manager-dashboard.png)
+
+## Sign up Page
+![Sign up](../images/wireframes/sign_up.png)
+
+## Sign in Page
+![Sign In](../images/wireframes/sign_in.png)
+
+## User profile Page
+![Sign In](../images/wireframes/user_profile.png)

@@ -147,3 +147,7 @@
 |  04   | [IMG]   | Product D     | $40.00  | [Edit] [Delete] |
 +-------------------------------------------------------------+
 ```
+
+High-fidelity (hi-fi) wireframes
+Product Catalog
+![Product Catalog](./images/wireframes/prodcut_catalog.png)

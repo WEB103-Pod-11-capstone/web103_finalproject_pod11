@@ -5,10 +5,10 @@ import dotenv from "dotenv";
 const app = express();
 
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 dotenv.config();
 
 const port = process.env.PORT;
 
-app.listen(() => console.log(`Listening on Port: ${port}`));
+app.listen(port, () => console.log(`Listening on Port: ${port}`));

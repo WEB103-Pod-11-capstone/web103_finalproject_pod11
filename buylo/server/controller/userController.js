@@ -9,33 +9,33 @@ export const registerUser = async (req, res) => {
   try {
     //Backend validations
 
-    //Non-Empty Fields Validations
+    //Non-Empty Fields Validations || Passed ✅
     if (!first_name || !last_name || !email || !password) {
       return res
         .status(400)
         .json({ message: "All fields are required to register." });
     }
 
-    //User's Name Length Validation
+    //User's Name Length Validation || Passed ✅
     if (first_name.length > 20 || last_name.length > 20) {
       return res
         .status(400)
         .json({ message: "Must be less than 20 characters long. Try again." });
     }
 
-    //Valid Email Expression Validation
+    //Valid Email Expression Validation || Passed ✅
     if (!isValidEmail(email)) {
       return res.status(400).json({ message: "Please enter a valid email." });
     }
 
-    //Valid Password Length Validation
+    //Valid Password Length Validation || Passed ✅
     if (password.length < 8) {
       return res
         .status(400)
         .json({ message: "Password must be at least 8 characters long." });
     }
 
-    //Password-Valid Password Check
+    //Password-Valid Password Check || Passed ✅
     if (password !== confirm_password) {
       return res
         .status(400)
@@ -48,23 +48,32 @@ export const registerUser = async (req, res) => {
       [email],
     );
 
-    //Existing User Validation
+    //Existing User Validation || Passed ✅
     if (userExist.rows[0]) {
       return res
         .status(409)
         .json({ message: "User already exist. Please log in." });
     }
 
-    //Hashing Password to Protect User's Account
+    //Hashing Password to Protect User's Account || Passed ✅
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    //Saving User's Data in Database
+    //Saving User's Data in Database || Passed ✅
     const newUser = await client.query(
-      "INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)",
+      "INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING id, email",
       [first_name, last_name, email, hashedPassword],
     );
 
-    //Save User ID and Email in Token for Authentication
+    console.log(newUser.rows[0].id);
+
+    //Create Cart upon User Registration || Passed ✅
+    await client.query(
+      `
+      INSERT INTO cart(user_id) VALUES($1)`,
+      [newUser.rows[0].id],
+    );
+
+    //Save User ID and Email in Token for Authentication || Passed ✅
     const token = jwt.sign(
       { id: newUser.rows[0].id, email: newUser.rows[0].email },
       process.env.JWT_SECRET,
@@ -73,6 +82,8 @@ export const registerUser = async (req, res) => {
 
     return res.status(201).json({ token });
   } catch (error) {
+    console.error(error);
+
     return res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -81,12 +92,14 @@ export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    //Check if all fields are entered || Passed ✅
     if (!email || !password) {
       return res
         .status(400)
         .json({ message: "All fields must be entered to login." });
     }
 
+    //Check if email is valid || Passed ✅
     if (!isValidEmail(email)) {
       return res
         .status(400)
@@ -98,6 +111,7 @@ export const loginUser = async (req, res) => {
       [email],
     );
 
+    //Check if correct email is entered || Passed ✅
     if (!user.rows[0]) {
       return res
         .status(400)
@@ -109,6 +123,7 @@ export const loginUser = async (req, res) => {
       user.rows[0].password,
     );
 
+    //Check if correct password is entered || Passed ✅
     if (!hashedPassword) {
       return res
         .status(400)
@@ -126,5 +141,23 @@ export const loginUser = async (req, res) => {
     console.error(error);
 
     return res.status(500).json({ message: "Internal server error." });
+  }
+};
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const result = await client.query(
+      "SELECT id, first_name, last_name, email FROM users",
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(200).json([]);
+    }
+
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

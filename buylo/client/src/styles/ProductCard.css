@@ -48,6 +48,13 @@
 @media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(4, 1fr); } }
 
 /* Product Card - Bordered Look */
+.product-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Makes the link fill the grid cell */
+  height: 100%;
+}
+
 .product-card { 
   border: 1px solid #e5e5e5;
   border-radius: 12px;

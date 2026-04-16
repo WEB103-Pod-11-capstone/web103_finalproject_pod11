@@ -2,6 +2,8 @@ import React from 'react'
 import logo from '../assets/logo.svg'
 import '../styles/MainNav.css'
 import { Link } from 'react-router-dom';
+import { FiShoppingCart } from "react-icons/fi";
+
 
 const MainNav = () => {
   return (
@@ -16,14 +18,18 @@ const MainNav = () => {
         </ul>
          <ul>
           <li className="search-nav">       
-              <div className="search-wrapper">
-                <input type="search" placeholder="Search minimalist products..." />
+              <div className="search-wrapper">                
+                <input type="search" placeholder="Search our products..." />                
               </div>       
             </li>
           </ul>
         <ul>
           <li><Link to="/">Shop</Link></li>
-          <li><Link to="/cart" role="button" className="secondary">Cart</Link></li>
+          <li><Link to="/cart" role="button">
+                <FiShoppingCart size={20}/>
+                <span style={{ padding:'10px'}}>Cart</span>
+                </Link>
+          </li>
           <li><Link to="/login" role="button" className="outline">Login</Link></li>
         </ul>
       </nav>

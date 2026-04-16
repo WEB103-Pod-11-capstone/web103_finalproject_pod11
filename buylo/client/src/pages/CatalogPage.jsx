@@ -39,7 +39,7 @@ const CatalogPage = () => {
       <Filter sortBy={sortBy} onSortChange={setSortBy} />
       <div className="product-grid">
         {sortedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />  
+            <ProductCard key={product.id} product={product} />
         ))}
       </div>     
     

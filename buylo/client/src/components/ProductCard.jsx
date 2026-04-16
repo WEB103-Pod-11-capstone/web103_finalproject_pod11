@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/ProductCard.css';
 import { Link } from 'react-router-dom';
+import { FiShoppingCart } from "react-icons/fi"; 
 
 const ProductCard = ({ product }) => {
 
@@ -27,7 +28,9 @@ const ProductCard = ({ product }) => {
           <span className="price">${product.price.toFixed(2)}</span>
         </div>
         
-        <button className="add-to-cart-btn" onClick={handleAddToCart}>ADD TO CART</button>
+        <button className="add-to-cart-btn" onClick={handleAddToCart}>
+          <FiShoppingCart style={{ marginRight: '8px' }} /> ADD TO CART
+        </button>
       </div>
     </article>
     </Link>

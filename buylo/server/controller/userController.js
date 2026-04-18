@@ -161,3 +161,32 @@ export const getAllUsers = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const getUserById = async (req, res) => {
+  const { userId } = req.body;
+
+  try {
+    if (!userId) {
+      return res.status(400).json({ message: "Data not provided" });
+    }
+
+    const user = await client.query(
+      `
+      SELECT first_name, last_name, email
+      FROM users
+      WHERE id=$1
+      `,
+      [userId],
+    );
+
+    if (user.rowCount === 0) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user.rows[0]);
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

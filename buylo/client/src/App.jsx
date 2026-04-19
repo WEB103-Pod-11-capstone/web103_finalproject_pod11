@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router-dom';
+import { useRoutes  } from 'react-router-dom';
 import './App.css'
 import MainNav from './components/MainNav';
 
@@ -71,7 +71,7 @@ const App = () => {
       <main className="container">
         {element}
       </main>
-
+     
       <footer className="container">
         <small>© 2026 Buylo • Minimalist Shopping</small>
       </footer>

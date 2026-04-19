@@ -10,7 +10,7 @@ import authMiddleware from "../middleware/auth.js";
 const userRouter = Router();
 
 userRouter.route("/users").get(authMiddleware, getAllUsers);
-userRouter.route("/users/:id").get(getUserById);
+userRouter.route("/users/:userId").get(getUserById);
 userRouter.route("/register").post(registerUser);
 userRouter.route("/login").post(loginUser);
 

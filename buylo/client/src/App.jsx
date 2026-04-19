@@ -1,6 +1,8 @@
-import { useRoutes  } from 'react-router-dom';
+import { useRoutes, useLocation  } from 'react-router-dom';
 import './App.css'
 import MainNav from './components/MainNav';
+
+import { useState } from 'react';
 
 import { 
   CatalogPage, 
@@ -21,10 +23,14 @@ import {
 const App = () => {
   // const [ products, setProducts ] = useState([])
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const location = useLocation();
+
   let element = useRoutes([
     {
       path:"/",
-      element:<CatalogPage />
+      // element:<CatalogPage />
+      element: <CatalogPage searchTerm={searchTerm} />
     },
     {
       path:"/product/:id",
@@ -65,7 +71,11 @@ const App = () => {
 
   return (
     <>     
-      <MainNav />
+      <MainNav
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        showSearch={location.pathname === '/'}
+      />
 
       {/* The <main> tag with "container" keeps your content centered and responsive */}
       <main className="container">

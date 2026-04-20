@@ -6,10 +6,29 @@ import { useState, useMemo } from 'react';
 import Filter from '../components/Filter';
 import ProductCard from '../components/ProductCard';
 
-const CatalogPage = () => {
+const CatalogPage = ({ searchTerm }) => {
   const [sortBy, setSortBy] = useState('score');
-  const sortedProducts = useMemo(() => {
+
+
+  // adding state for category filter
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const categories = ['all', ...new Set(MOCK_PRODUCTS.map((product) => product.category))];
+
+  // const sortedProducts = useMemo(() => {
+  const filteredAndSortedProducts = useMemo(() => {
     let result = [...MOCK_PRODUCTS];
+
+    if (searchTerm.trim() !== '') {
+      result = result.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (selectedCategory !== 'all') {
+      result = result.filter((product) => product.category === selectedCategory);
+    }
+
+
     switch (sortBy) {
       case 'title': return result.sort((a, b) => a.name.localeCompare(b.name));
       case '-title': return result.sort((a, b) => b.name.localeCompare(a.name));
@@ -17,7 +36,9 @@ const CatalogPage = () => {
       case '-price': return result.sort((a, b) => b.price - a.price);
       default: return result;
     }
-  }, [sortBy]);
+  // }, [sortBy]);
+  }, [sortBy, searchTerm, selectedCategory]);
+
 
   return (
     <main className="catalog-container">
@@ -35,10 +56,23 @@ const CatalogPage = () => {
         </div>
       </section>
 
+
+    
+
+
       {/* Filter Row */}
-      <Filter sortBy={sortBy} onSortChange={setSortBy} />
+      <Filter 
+        sortBy={sortBy} 
+        onSortChange={setSortBy} 
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        categories={categories}
+      />
+
+      
       <div className="product-grid">
-        {sortedProducts.map((product) => (
+        {/* {sortedProducts.map((product) => ( */}
+        {filteredAndSortedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
         ))}
       </div>     

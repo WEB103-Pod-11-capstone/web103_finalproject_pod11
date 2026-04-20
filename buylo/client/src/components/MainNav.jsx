@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi";
 
 
-const MainNav = () => {
+const MainNav = ({ searchTerm, onSearchChange, showSearch }) => {
   return (
     <nav className="container">
         <ul>
@@ -19,7 +19,13 @@ const MainNav = () => {
          <ul>
           <li className="search-nav">       
               <div className="search-wrapper">                
-                <input type="search" placeholder="Search our products..." />                
+                <input 
+                  type="search" 
+                  placeholder="Search our products..."
+                  value={searchTerm}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  disabled={!showSearch}
+                />                
               </div>       
             </li>
           </ul>

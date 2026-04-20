@@ -37,33 +37,33 @@ Backend:
 
 ## Features
 
-### Product Catalog
+### ✅ Product Catalog
 
 Shoppers can browse a list of all available products, displayed in a grid featuring images, prices, and brief titles.
 
-[gif goes here]
+![Product Catalog](gifs/product-catalog.gif)
 
-### Product Details
+### ✅ Product Details
 
 Shoppers can view dedicated product details, including in-depth descriptions, pricing, and stock status, to make informed purchasing decisions before adding items to their cart.
 
-[gif goes here]
+![Product Details](gifs/product-details.gif)
 
-### Product Search
+### ✅ Product Search
 
 Shoppers can search for a specific product by name.
 
-[gif goes here]
+![Product Search](gifs/product-search.gif)
 
-### Category Filter
+### ✅ Category Filter
 
 Shoppers can filter products by category to narrow down their choices.
 
-[gif goes here]
+![Category Filter](gifs/category-filter.gif)
 
 ### Shopping Cart
 
-Shoppers can add items to a cart and keep track of products they want to buy. 
+Shoppers can add items to a cart and keep track of products they want to buy.
 
 [gif goes here]
 

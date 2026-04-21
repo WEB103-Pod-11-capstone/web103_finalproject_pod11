@@ -21,8 +21,7 @@ import {
 
 
 const App = () => {
-  // const [ products, setProducts ] = useState([])
-
+ 
   const [searchTerm, setSearchTerm] = useState('');
   const location = useLocation();
 

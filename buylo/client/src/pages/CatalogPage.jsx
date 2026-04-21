@@ -1,23 +1,44 @@
 import React from 'react';
-import { MOCK_PRODUCTS } from '../mockData';
+// import { MOCK_PRODUCTS } from '../mockData';
 import '../styles/CatalogPage.css';
-import { useState, useMemo } from 'react';  
+import { useState,useEffect, useMemo } from 'react';  
+import ProductsAPI  from '../services/ProductsAPI'
 
 import Filter from '../components/Filter';
 import ProductCard from '../components/ProductCard';
 
 const CatalogPage = ({ searchTerm }) => {
-  const [sortBy, setSortBy] = useState('score');
 
+  const [products, setProducts] = useState([]);
+  const [sortBy, setSortBy] = useState('score');
+  
 
   // adding state for category filter
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const categories = ['all', ...new Set(MOCK_PRODUCTS.map((product) => product.category))];
+  const categories = ['all', ...new Set(products.map((product) => product.category))];
+  // const categories = ['all', ...new Set(MOCK_PRODUCTS.map((product) => product.category))];
+
+ useEffect(() => {  
+  const fetchProducts = async () => {
+    try {
+      const data = await ProductsAPI.getProducts(); 
+      console.log( data)    
+      setProducts(data);
+    } catch (error) {      
+      console.error("Failed to load products:", error);
+    }
+  };
+
+
+  fetchProducts();
+}, []); 
 
   // const sortedProducts = useMemo(() => {
   const filteredAndSortedProducts = useMemo(() => {
-    let result = [...MOCK_PRODUCTS];
-
+    // let result = [...MOCK_PRODUCTS];
+    let result = [...(products || [])];
+    console.log(result)
+    
     if (searchTerm.trim() !== '') {
       result = result.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -37,7 +58,7 @@ const CatalogPage = ({ searchTerm }) => {
       default: return result;
     }
   // }, [sortBy]);
-  }, [sortBy, searchTerm, selectedCategory]);
+  }, [products,sortBy, searchTerm, selectedCategory]);
 
 
   return (

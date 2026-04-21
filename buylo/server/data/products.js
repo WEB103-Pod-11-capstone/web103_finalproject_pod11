@@ -7,7 +7,7 @@ const products = [
     current_quantity: 5,
     category: "Furniture",
     description: "Solid reclaimed teak wood with industrial steel legs.",
-    image_url: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88"
+    image_url: "https://placehold.co/400x500?text=Teak+Coffee+Table"
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const products = [
     current_quantity: 3,
     category: "Furniture",
     description: "Emerald green velvet chair with gold-finished legs.",
-    image_url: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7"
+    image_url: "https://placehold.co/400x500?text=Velvet+Chair"
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const products = [
     current_quantity: 7,
     category: "Furniture",
     description: "Five-tier open shelving unit made from light oak.",
-    image_url: "https://images.unsplash.com/photo-1594620302200-9a762244a156"
+    image_url: "https://placehold.co/400x500?text=Oak+Bookshelf"
   },
 
   // CATEGORY 2: Home Decor
@@ -36,7 +36,7 @@ const products = [
     current_quantity: 15,
     category: "Home Decor",
     description: "Hand-crafted matte white ceramic vase for dried flowers.",
-    image_url: "https://images.unsplash.com/photo-1581783898377-1c85bf937427"
+    image_url: "https://placehold.co/400x500?text=Ceramic+Vase"
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const products = [
     current_quantity: 24,
     category: "Home Decor",
     description: "100% organic linen cover with hypoallergenic fill.",
-    image_url: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6"
+    image_url: "https://placehold.co/400x500?text=Linen+Pillow"
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const products = [
     current_quantity: 40,
     category: "Home Decor",
     description: "Sandalwood and Sage scented hand-poured soy wax.",
-    image_url: "https://images.unsplash.com/photo-1603006905023-efdf751ee33d"
+    image_url: "https://placehold.co/400x500?text=Soy+Candle"
   },
 
   // CATEGORY 3: Lighting
@@ -65,7 +65,7 @@ const products = [
     current_quantity: 12,
     category: "Lighting",
     description: "Architectural desk lamp with an adjustable arm.",
-    image_url: "https://images.unsplash.com/photo-1507473885765-e6ed657f9971"
+    image_url: "https://placehold.co/400x500?text=Black+Table+Lamp"
   },
   {
     id: 8,
@@ -74,7 +74,7 @@ const products = [
     current_quantity: 6,
     category: "Lighting",
     description: "Hand-blown smoked glass globe with brass hardware.",
-    image_url: "https://images.unsplash.com/photo-1543198126-a8ad8e47fb21"
+    image_url: "https://placehold.co/400x500?text=Pendant+Light"
   },
   {
     id: 9,
@@ -83,7 +83,7 @@ const products = [
     current_quantity: 4,
     category: "Lighting",
     description: "Arched floor lamp with a linen drum shade.",
-    image_url: "https://images.unsplash.com/photo-1513506491745-6d28654ad045"
+    image_url: "https://placehold.co/400x500?text=Floor+Lamp"
   },
 
   // CATEGORY 4: Wall Art
@@ -94,7 +94,7 @@ const products = [
     current_quantity: 8,
     category: "Wall Art",
     description: "Framed 24x36 abstract painting in earth tones.",
-    image_url: "https://images.unsplash.com/photo-1549490349-8643362247b5"
+    image_url: "https://placehold.co/400x500?text=Abstract+Art"
   },
   {
     id: 11,
@@ -103,7 +103,7 @@ const products = [
     current_quantity: 10,
     category: "Wall Art",
     description: "Laser-cut geometric pattern made from dark walnut.",
-    image_url: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3"
+    image_url: "https://placehold.co/400x500?text=Geometric+Wall+Art"
   },
   {
     id: 12,
@@ -112,7 +112,7 @@ const products = [
     current_quantity: 20,
     category: "Wall Art",
     description: "Framed single-line drawing on textured paper.",
-    image_url: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5"
+    image_url: "https://placehold.co/400x500?text=Line+Sketch"
   },
 
   // CATEGORY 5: Kitchenware
@@ -123,7 +123,7 @@ const products = [
     current_quantity: 18,
     category: "Kitchenware",
     description: "Pre-seasoned 12-inch heavy-duty cast iron skillet.",
-    image_url: "https://images.unsplash.com/photo-1590159746766-0217013960c6"
+    image_url: "https://placehold.co/400x500?text=Cast+Iron+Skillet"
   },
   {
     id: 14,
@@ -132,7 +132,7 @@ const products = [
     current_quantity: 9,
     category: "Kitchenware",
     description: "Cool-surface white marble slab for rolling dough.",
-    image_url: "https://images.unsplash.com/photo-1590604518089-3cca99370603"
+    image_url: "https://placehold.co/400x500?text=Marble+Slab"
   },
   {
     id: 15,
@@ -141,8 +141,8 @@ const products = [
     current_quantity: 30,
     category: "Kitchenware",
     description: "Matte black ceramic dripper for manual coffee brewing.",
-    image_url: "https://images.unsplash.com/photo-1544200175-ca6e80a7b325"
+    image_url: "https://placehold.co/400x500?text=Coffee+Pour-Over"
   }
 ];
 
-export default products
+export default products;

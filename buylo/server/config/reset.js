@@ -24,7 +24,10 @@ const createTables = async () => {
         CREATE OR REPLACE FUNCTION update_modified_column()
         RETURNS TRIGGER AS $$
         BEGIN
+            -- Set the updated_at column to the current timestamp
             NEW.updated_at = now();
+
+            -- Return the modified record to continue the update process
             RETURN NEW;
         END;
         $$ language 'plpgsql';

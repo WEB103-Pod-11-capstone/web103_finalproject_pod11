@@ -1,5 +1,5 @@
 import { client } from './database.js';
-import products from '../data/products.js';
+import products from '../data/product.js';
 
 const createTables = async () => {
     const createTableQuery = `

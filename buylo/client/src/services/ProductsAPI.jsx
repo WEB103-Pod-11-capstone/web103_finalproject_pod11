@@ -33,8 +33,16 @@ const getProductById = async (id) => {
 }
 
 const updateProduct = async (id, updatedData) => {
-    try {      
-        const response = await axios.put(`${API_URL}/${id}`, updatedData);     
+
+    try {
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            throw new Error('No update data provided');
+        }
+        const response = await axios.put(`${API_URL}/${id}`, updatedData,{
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });     
         return response.data;
         
     } catch (error) {
@@ -57,5 +65,7 @@ const deleteProduct = async (id) => {
 
 export default {
     getProducts,
-    getProductById
+    getProductById,
+    updateProduct,
+    deleteProduct
 }

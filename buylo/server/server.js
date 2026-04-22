@@ -5,6 +5,7 @@ import { client } from "./config/database.js";
 import userRouter from "./routes/userRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import cartRouter from "./routes/cartRoutes.js";
+import orderRouter from "./routes/orderRoutes.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ dotenv.config();
 app.use("/", userRouter);
 app.use("/", productRouter);
 app.use("/", cartRouter);
+app.use("/", orderRouter);
 
 const port = process.env.PORT;
 

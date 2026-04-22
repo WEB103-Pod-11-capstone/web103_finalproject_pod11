@@ -18,3 +18,8 @@ export const isUrlValid = (url) => {
     /^https?:\/\/([\da-z\.-]+)\.([a-z]{2,6})(\/[\w\.-]*)*(\?[;&\w\.\+=\-]*)?\/?$/;
   return urlRegex.test(url.trim());
 };
+
+export const isAddressValid = (address) => {
+  const addressRegex = /^\d+\s[\w\s.,-]+$/;
+  return addressRegex.test(address.trim());
+};

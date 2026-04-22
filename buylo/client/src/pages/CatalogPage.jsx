@@ -21,8 +21,7 @@ const CatalogPage = ({ searchTerm }) => {
  useEffect(() => {  
   const fetchProducts = async () => {
     try {
-      const data = await ProductsAPI.getProducts(); 
-      console.log( data)    
+      const data = await ProductsAPI.getProducts();      
       setProducts(data);
     } catch (error) {      
       console.error("Failed to load products:", error);

@@ -1,18 +1,32 @@
-import { React, useState } from 'react';
+import { React, useState , useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import ProductsAPI  from '../services/ProductsAPI'
 import { FiHeart , FiShoppingCart } from "react-icons/fi"; // Feather: Thin, modern outline
 
 
-import { MOCK_PRODUCTS } from '../mockData';
+// import { MOCK_PRODUCTS } from '../mockData';
 
 import '../styles/ProductDetailsPage.css';
+
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const [selectedQty, setSelectedQty] = useState(1);
+  const [product,setProduct] = useState({})
   
   // Find the product by ID (matching the URL param)
-  const product = MOCK_PRODUCTS.find((p) => p.id === parseInt(id));
+  // const product = MOCK_PRODUCTS.find((p) => p.id === parseInt(id));
+  useEffect(()=>{
+    const fetchProduct = async()=>{
+      try{
+        const data = await ProductsAPI.getProductById(id);
+        setProduct(data);
+      }catch(error){
+        console.error("Failed to load the selected product:", error);
+      }
+    }
+    fetchProduct()
+  },[])
 
   // Handle case where product isn't found
   if (!product) {
@@ -25,7 +39,7 @@ const ProductDetailsPage = () => {
   }
 
   // Generate numbers from 1 up to the total stock (max 10 for clean UI)
-  const stockLimit = Math.min(product.quantity, 10);
+  const stockLimit = Math.min(product.current_quantity, 10);
   const qtyOptions = Array.from({ length: stockLimit }, (_, i) => i + 1);
 
   return (
@@ -48,7 +62,7 @@ const ProductDetailsPage = () => {
         <div className="product-info-section">
           <span className="brand-tag">{product.category}</span>
           <h1 className="detail-name">{product.name}</h1>
-          <p className="detail-price">${product.price.toFixed(2)}</p>
+          <p className="detail-price">${Number(product.price).toFixed(2)}</p>
           
           <div className="detail-description">
             <h3>Product Description</h3>
@@ -56,7 +70,7 @@ const ProductDetailsPage = () => {
           </div>
 
           <div className="stock-info">
-            <p>{product.quantity > 0 ? `In Stock (${product.quantity} available)` : 'Out of Stock'}</p>
+            <p>{product.current_quantity > 0 ? `In Stock (${product.current_quantity} available)` : 'Out of Stock'}</p>
           </div>
           <div className="quantity-selector">
             <label htmlFor="qty">Quantity:</label>

@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "reset": "node config/reset.js",
-    "start": "nodemon server.js",
-    "dev": "concurrently \"cd client && npm run dev\" \"cd server && nodemon server.js\""
+    "start": "nodemon server.js"    
   },
   "keywords": [],
   "author": "",

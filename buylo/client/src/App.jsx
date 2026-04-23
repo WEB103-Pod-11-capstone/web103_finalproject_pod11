@@ -10,7 +10,7 @@ import {
   CartPage, 
   CheckoutPage, 
   SignUpPage, 
-  LoginPage, 
+  LogInPage, 
   ProfilePage, 
   AdminDashboardPage, 
   EditProductPage 
@@ -49,7 +49,7 @@ const App = () => {
     },
     {
       path:"/login",
-      element:<LoginPage />
+      element:<LogInPage />
     },
     { 
       path:"/profile",

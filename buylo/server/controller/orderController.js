@@ -171,6 +171,17 @@ export const createNewOrder = async (req, res) => {
       [userId],
     );
 
+    //Update product quantity
+    for (const item of itemsOrdered) {
+      await client.query(
+        `
+        UPDATE products set current_stock = current_stock - $1
+        WHERE id=$2
+        `,
+        [item.quantity, item.product_id],
+      );
+    }
+
     await client.query("COMMIT");
 
     return res

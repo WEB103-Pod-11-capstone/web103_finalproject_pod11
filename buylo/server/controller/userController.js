@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { client } from "../config/database.js";
-import { isValidEmail } from "../utils/validators.js";
+import { isNameValid, isValidEmail } from "../utils/validators.js";
 
 export const registerUser = async (req, res) => {
   const { first_name, last_name, email, password, confirm_password } = req.body;
@@ -14,6 +14,13 @@ export const registerUser = async (req, res) => {
       return res
         .status(400)
         .json({ message: "All fields are required to register." });
+    }
+
+    //Valid first name & last name Validations ||
+    if (!isNameValid(first_name) || !isNameValid(last_name)) {
+      return res
+        .status(400)
+        .json({ message: "Invalid name. Please try again" });
     }
 
     //User's Name Length Validation || Passed ✅

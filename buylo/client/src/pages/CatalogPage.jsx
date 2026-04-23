@@ -1,15 +1,54 @@
 import React from 'react';
-import { MOCK_PRODUCTS } from '../mockData';
+// import { MOCK_PRODUCTS } from '../mockData';
 import '../styles/CatalogPage.css';
-import { useState, useMemo } from 'react';  
+import { useState,useEffect, useMemo } from 'react';  
+import ProductsAPI  from '../services/ProductsAPI'
 
 import Filter from '../components/Filter';
 import ProductCard from '../components/ProductCard';
 
-const CatalogPage = () => {
+const CatalogPage = ({ searchTerm }) => {
+
+  const [products, setProducts] = useState([]);
   const [sortBy, setSortBy] = useState('score');
-  const sortedProducts = useMemo(() => {
-    let result = [...MOCK_PRODUCTS];
+  
+
+  // adding state for category filter
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const categories = ['all', ...new Set(products.map((product) => product.category))];
+  // const categories = ['all', ...new Set(MOCK_PRODUCTS.map((product) => product.category))];
+
+ useEffect(() => {  
+  const fetchProducts = async () => {
+    try {
+      const data = await ProductsAPI.getProducts();      
+      setProducts(data);
+    } catch (error) {      
+      console.error("Failed to load products:", error);
+    }
+  };
+
+
+  fetchProducts();
+}, []); 
+
+  // const sortedProducts = useMemo(() => {
+  const filteredAndSortedProducts = useMemo(() => {
+    // let result = [...MOCK_PRODUCTS];
+    let result = [...(products || [])];
+    console.log(result)
+    
+    if (searchTerm.trim() !== '') {
+      result = result.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (selectedCategory !== 'all') {
+      result = result.filter((product) => product.category === selectedCategory);
+    }
+
+
     switch (sortBy) {
       case 'title': return result.sort((a, b) => a.name.localeCompare(b.name));
       case '-title': return result.sort((a, b) => b.name.localeCompare(a.name));
@@ -17,7 +56,9 @@ const CatalogPage = () => {
       case '-price': return result.sort((a, b) => b.price - a.price);
       default: return result;
     }
-  }, [sortBy]);
+  // }, [sortBy]);
+  }, [products,sortBy, searchTerm, selectedCategory]);
+
 
   return (
     <main className="catalog-container">
@@ -35,10 +76,23 @@ const CatalogPage = () => {
         </div>
       </section>
 
+
+    
+
+
       {/* Filter Row */}
-      <Filter sortBy={sortBy} onSortChange={setSortBy} />
+      <Filter 
+        sortBy={sortBy} 
+        onSortChange={setSortBy} 
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+        categories={categories}
+      />
+
+      
       <div className="product-grid">
-        {sortedProducts.map((product) => (
+        {/* {sortedProducts.map((product) => ( */}
+        {filteredAndSortedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
         ))}
       </div>     

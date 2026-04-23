@@ -19,6 +19,6 @@ app.use("/", productRouter);
 app.use("/", cartRouter);
 app.use("/", orderRouter);
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 
 app.listen(port, () => console.log(`Listening on Port: ${port}`));

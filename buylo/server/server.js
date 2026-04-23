@@ -14,10 +14,10 @@ app.use(cors());
 
 dotenv.config();
 
-app.use("/", userRouter);
-app.use("/", productRouter);
-app.use("/", cartRouter);
-app.use("/", orderRouter);
+app.use("/api", userRouter);
+app.use("/api", productRouter);
+app.use("/api", cartRouter);
+app.use("/api", orderRouter);
 
 const port = process.env.PORT || 3001;
 

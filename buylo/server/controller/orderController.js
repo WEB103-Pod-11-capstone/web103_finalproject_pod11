@@ -1,13 +1,20 @@
 import { client } from "../config/database.js";
-import { isAddressValid } from "../utils/validators.js";
+import { isAddressValid, isPhoneNumberValid } from "../utils/validators.js";
 
 export const addShippingAddress = async (req, res) => {
-  const { userId, address_line_1, address_line_2, city, state, zipcode } =
-    req.body;
+  const {
+    userId,
+    phone_number,
+    address_line_1,
+    address_line_2,
+    city,
+    state,
+    zipcode,
+  } = req.body;
 
   try {
     //All input fields validation || Passed ✅
-    if (!address_line_1 || !city || !state || !zipcode) {
+    if (!address_line_1 || !city || !state || !zipcode || !phone_number) {
       return res.status(400).json({ message: "All fields must be filled" });
     }
 
@@ -26,13 +33,25 @@ export const addShippingAddress = async (req, res) => {
       return res.status(400).json({ message: "Zip code is invalid" });
     }
 
+    if (!isPhoneNumberValid(phone_number)) {
+      return res.status(400).json({ message: "Invalid phone number" });
+    }
+
     await client.query(
       `
       UPDATE users
-      SET address_line_1=$1, address_line_2=$2, city=$3, state=$4, zipcode=$5
-      WHERE id=$6
+      SET phone_number=$1, address_line_1=$2, address_line_2=$3, city=$4, state=$5, zipcode=$6
+      WHERE id=$7
       `,
-      [address_line_1, address_line_2, city, state, zipcode, userId],
+      [
+        phone_number,
+        address_line_1,
+        address_line_2,
+        city,
+        state,
+        zipcode,
+        userId,
+      ],
     );
 
     return res.status(201).json({ message: "Address added successfully" });
@@ -160,6 +179,84 @@ export const createNewOrder = async (req, res) => {
   } catch (error) {
     await client.query("ROLLBACK");
 
+    console.error(error);
+
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getAllOrders = async (req, res) => {
+  try {
+    const orders = await client.query(`
+      SELECT CONCAT(u.first_name,' ', u.last_name) as customer_name,
+      o.status as order_status, count(*) as total_items_ordered,
+      json_agg(json_build_object('product_name', p.name, 'product_image', p.image , 
+      'quantity',oi.quantity, 'price_at_purchase', oi.price_at_purchase)) as items_ordered, 
+      o.created_at as order_date
+      FROM orders o 
+      JOIN users u 
+      ON o.user_id=u.id
+      JOIN order_items oi 
+      ON o.id=oi.order_id
+      JOIN products p 
+      ON oi.product_id=p.id
+      GROUP BY o.created_at, o.status, u.first_name, u.last_name
+      `);
+
+    if (orders.rowCount === 0) {
+      return res.status(400).json({ message: "No orders available" });
+    }
+
+    return res.status(200).json(orders.rows);
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getOrdersByUserId = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    if (!userId) {
+      return res.status(400).json({ message: "Data not provided" });
+    }
+
+    const checkUser = await client.query(
+      `
+      SELECT id FROM users WHERE id=$1
+      `,
+      [userId],
+    );
+
+    if (checkUser.rowCount === 0) {
+      return res.status(400).json({ message: "User doesn't exist" });
+    }
+
+    const orders = await client.query(
+      `
+      SELECT o.created_at as order_date, o.total_price, o.status,
+      o.shipping_address,
+      json_agg(json_build_object('product_name', p.name, 'product_image', p.image,
+      'quantity', oi.quantity, 'price_at_purchase', oi.price_at_purchase)) as items_ordered
+      FROM orders o
+      JOIN order_items oi
+      ON o.id=oi.order_id
+      JOIN products p
+      ON oi.product_id=p.id
+      WHERE user_id=$1
+      GROUP BY o.created_at, o.total_price, o.status, o.shipping_address
+      `,
+      [userId],
+    );
+
+    if (orders.rowCount === 0) {
+      return res.status(400).json({ message: "No orders available" });
+    }
+
+    return res.status(200).json(orders.rows);
+  } catch (error) {
     console.error(error);
 
     return res.status(500).json({ message: "Internal server error" });

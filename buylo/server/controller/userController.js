@@ -64,8 +64,6 @@ export const registerUser = async (req, res) => {
       [first_name, last_name, email, hashedPassword],
     );
 
-    console.log(newUser.rows[0].id);
-
     //Create Cart upon User Registration || Passed ✅
     await client.query(
       `
@@ -107,7 +105,7 @@ export const loginUser = async (req, res) => {
     }
 
     const user = await client.query(
-      "SELECT id, email, password FROM users WHERE email=$1",
+      "SELECT id, email, password, user_role FROM users WHERE email=$1",
       [email],
     );
 
@@ -131,7 +129,11 @@ export const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.rows[0].id, email: user.rows[0].email },
+      {
+        id: user.rows[0].id,
+        email: user.rows[0].email,
+        user_role: user.rows[0].user_role,
+      },
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );

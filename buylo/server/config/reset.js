@@ -51,9 +51,30 @@ const seedProducts = async () => {
 const seedUsers = async () => {
     for (const user of users) {
         const query = {
-            text: `INSERT INTO users (first_name, last_name, phone_number, email, password, address_line_1, address_line_2, city, state, zipcode, user_type) 
+            text: `INSERT INTO users (
+                first_name, 
+                last_name, 
+                phone_number, 
+                email, password, 
+                address_line_1, 
+                address_line_2, 
+                city, 
+                state, 
+                zipcode, 
+                user_role) 
                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-            values: [user.first_name, user.last_name, user.phone_number, user.email, user.password, user.address_line_1, user.address_line_2, user.city, user.state, user.zipcode, user.user_type]
+            values: [
+                user.first_name, 
+                user.last_name, 
+                user.phone_number, 
+                user.email, 
+                user.password, 
+                user.address_line_1, 
+                user.address_line_2, 
+                user.city, user.state, 
+                user.zipcode, 
+                user.user_role
+            ]
         };
         await client.query(query);
     }

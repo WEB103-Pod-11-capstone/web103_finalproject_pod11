@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link , useNavigate } from 'react-router-dom';
+import UsersAPI from '../services/UsersAPI'; 
 import '../styles/LogInPage.css';
 
 const LogInPage = () => {
@@ -8,15 +9,31 @@ const LogInPage = () => {
     password: ''
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Logging in with:", credentials);
-  };
+ const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const result = await UsersAPI.loginUser({
+      email: credentials.email,
+      password: credentials.password
+    });
+
+    if (result.token) {
+       localStorage.setItem("token", result.token);    
+      
+       navigate("/");
+    }
+  } catch (err) {
+    console.log( err)
+    alert("Invalid email or password. Please try again.");
+  }
+};
 
   return (
     <main className="container login-container">
@@ -25,7 +42,7 @@ const LogInPage = () => {
           <h2>SIGN IN TO YOUR ACCOUNT</h2>
         </header>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
           <label htmlFor="email">
             Email Address:
             <input

@@ -13,28 +13,25 @@ const getUsers = async () => {
 
 
 
-const getUserById = async (id) => {
+const loginUser = async (credentials) => {
     try {
-       
-        const response = await axios.get(`${API_URL}/${id}`);
-        return response.data;
-        
+    //   credentials = { email: '...', password: '...' }
+      console.log(credentials)
+      const response = await axios.post(`${API_URL}/login`, credentials);
+      
+      // If successful, the backend returns { token: "..." }
+      return response.data; 
     } catch (error) {
-        
-        console.error(`Error fetching user with id ${id}:`, error);
-
-       
-        if (error.response && error.response.status === 404) {
-            console.warn(`User ${id} was not found in the database.`);
-        }
-
-        throw error; 
+      console.error("Login service error:", error.response?.data || error.message);
+      throw error; // Pass the error to the component to show an alert
     }
-}
+  }
 
 const createUser = async (userData) => {
+   
     try {
-        const response = await axios.post(API_URL, userData, {
+         console.log( userData)
+        const response = await axios.post(`${API_URL}/register`, userData, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -80,7 +77,7 @@ const deleteUser = async (id) => {
 
 export default {
     getUsers,
-    getUserById,
+    loginUser,
     createUser,
     updateUser,
     deleteUser

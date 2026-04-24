@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/SignUpPage.css'; // Import the new CSS
-import UsersApI from '../services/UsersAPI'; // Import the UsersAPI service
+import { Link , useNavigate } from 'react-router-dom';
+import '../styles/SignUpPage.css'; 
+import UsersAPI from '../services/UsersAPI'; 
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +12,8 @@ const SignUpPage = () => {
     confirmPassword: '',
     agreeToTerms: false
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,11 +31,24 @@ const SignUpPage = () => {
     }
 
     try{
-        const result = await UsersApI.createUser({
-          fullName: formData.fullName,
+        const result = await UsersAPI.createUser({
+          first_name: formData.first_name,
+          last_name: formData.last_name,
           email: formData.email,
-          password: formData.password
+          password: formData.password,
+          confirm_password: formData.confirmPassword
         });
+        
+
+        if (result && result.token) {
+        // Save the token so the user stays logged in
+        localStorage.setItem("token", result.token);
+        
+        alert("Registration successful! Welcome to BuyLo.");
+        
+        // Go straight to the home/products page instead of login
+        navigate("/"); 
+    }
     }catch( error){
         console.error("Error creating account:", error);
     }

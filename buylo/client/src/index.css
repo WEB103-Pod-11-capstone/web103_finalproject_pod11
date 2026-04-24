@@ -3,7 +3,7 @@
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #ffffff;
-  --hero-bg: #adbca5; 
+  --hero-bg: #F5EBE0; 
   --accent: #10b981; 
   --border: #e5e4e7;
   --shadow: rgba(0, 0, 0, 0.05) 0 10px 15px -3px;
@@ -21,12 +21,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Global Dark Mode */
-@media (prefers-color-scheme: dark) {
+/* Global Light Mode */
+@media (prefers-color-scheme: lightgray) {
   :root {
     --text: #000000af;
     --text-h: var(--text);
-    --bg: var(root);
+    --bg: var(--root);
     --hero-bg: #3d4a3e; 
     --border: #2e303a;
   }

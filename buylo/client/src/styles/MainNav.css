@@ -1,3 +1,10 @@
+/* Navigation Container */
+nav {
+  background-color: #fff;
+  border-bottom: 2px solid var(--accent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
 /* Branding styles */
 .body{
   background-attachment: #FAFAFA;
@@ -18,7 +25,7 @@
 .brand-name {
   font-size: 1.5rem;
   font-weight: bold;
-  color: var(--primary); /* Uses Pico's primary color variable */
+  color: var(--accent); /* Uses accent green color */
 }
 
 /* Optional: remove underline on hover for the brand */

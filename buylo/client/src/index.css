@@ -58,7 +58,8 @@ input, select, textarea {
   font-family: inherit;
   font-size: inherit;
   background-color: inherit;
-  border-color: #d3d3d3
+  border-color: #d3d3d3;
+  color: var(--text-h);
 }
 
 button {

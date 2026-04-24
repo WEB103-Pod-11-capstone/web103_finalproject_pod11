@@ -172,7 +172,8 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  const { userId } = req.params;
+  // const { userId } = req.params;
+   const userId = req.params.userId || (req.user && req.user.id);
 
   try {
     if (!userId) {

@@ -11,10 +11,10 @@ import isManager from "../middleware/isManager.js";
 const orderRouter = Router();
 
 orderRouter.route("/shipping").patch(authMiddleware, addShippingAddress);
-orderRouter.route("/orders/checkout").post(authMiddleware, createNewOrder);
-orderRouter.route("/orders/:userId").get(authMiddleware, getOrdersByUserId);
+orderRouter.route("/checkout").post(authMiddleware, createNewOrder);
+orderRouter.route("/:userId").get(authMiddleware, getOrdersByUserId);
 
 //Admin Orders routes
-orderRouter.route("/admin/orders").get(authMiddleware, isManager, getAllOrders);
+orderRouter.route("/admin").get(authMiddleware, isManager, getAllOrders);
 
 export default orderRouter;

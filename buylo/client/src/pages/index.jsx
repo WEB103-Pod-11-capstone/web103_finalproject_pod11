@@ -3,7 +3,7 @@ export { default as ProductDetailsPage } from './ProductDetailsPage';
 export { default as CartPage } from './CartPage';
 export { default as CheckoutPage } from './CheckoutPage';
 export { default as SignUpPage } from './SignUpPage';
-export { default as LoginPage } from './LoginPage';
+export { default as LogInPage } from './LoginPage';
 export { default as ProfilePage } from './ProfilePage';
 export { default as AdminDashboardPage } from './AdminDashboardPage';
 export { default as EditProductPage } from './EditProductPage';

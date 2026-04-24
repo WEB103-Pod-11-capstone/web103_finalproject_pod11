@@ -32,6 +32,21 @@ const getUserById = async (id) => {
     }
 }
 
+const createUser = async (userData) => {
+    try {
+        const response = await axios.post(API_URL, userData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+    }
+}
+
+
 const updateUser = async (id, updatedData) => {
 
     try {
@@ -66,6 +81,7 @@ const deleteUser = async (id) => {
 export default {
     getUsers,
     getUserById,
+    createUser,
     updateUser,
     deleteUser
 }

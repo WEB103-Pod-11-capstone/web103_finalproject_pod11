@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/SignUpPage.css'; // Import the new CSS
+import UsersApI from '../services/UsersAPI'; // Import the UsersAPI service
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
-    fullName: '',
+    first_name: '',
+    last_name:'',
     email: '',
     password: '',
     confirmPassword: '',
@@ -19,13 +21,24 @@ const SignUpPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
         alert("Passwords do not match!");
         return;
     }
-    console.log("Account Data:", formData);
+
+    try{
+        const result = await UsersApI.createUser({
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password
+        });
+    }catch( error){
+        console.error("Error creating account:", error);
+    }
+
+    
   };
 
   return (
@@ -36,14 +49,26 @@ const SignUpPage = () => {
         </header>
 
         <form onSubmit={handleSubmit}>
-          <label htmlFor="fullName">
-            Full Name:
+          <label htmlFor="firstName">
+            First Name:
             <input
               type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="Your full name"
-              value={formData.fullName}
+              id="firstName"
+              name="first_name"
+              placeholder="First Name"
+              value={formData.first_name}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <label htmlFor="last_Name">
+            Last Name:
+            <input
+              type="text"
+              id="lastName"
+              name="last_name"
+              placeholder="Last Name"
+              value={formData.last_name}
               onChange={handleChange}
               required
             />

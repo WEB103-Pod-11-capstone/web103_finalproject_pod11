@@ -11,14 +11,19 @@ console.log({
   DBPORT: process.env.DBPORT,
 })
 
+// export const client = new Client({
+//   host: process.env.DBHOST,
+//   user: process.env.DBUSER,
+//   password: process.env.DBPASSWORD,
+//   database: process.env.DBNAME,
+//   port: Number(process.env.DBPORT),
+//   ssl: { rejectUnauthorized: false },
+// })
 export const client = new Client({
-  host: process.env.DBHOST,
-  user: process.env.DBUSER,
-  password: process.env.DBPASSWORD,
-  database: process.env.DBNAME,
-  port: Number(process.env.DBPORT),
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
-})
+});
+
 
 try {
   await client.connect()

@@ -169,3 +169,155 @@ export const getCartByUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const increaseItemQuantity = async (req, res) => {
+  const { cartId, productId } = req.body;
+
+  try {
+    if (!cartId || !productId) {
+      return res.status(400).json({ message: "Data not provided" });
+    }
+
+    const cartItems = await client.query(
+      `
+      SELECT quantity
+      FROM cart_items
+      WHERE cart_id=$1 AND product_id=$2 
+      GROUP BY quantity
+      `,
+      [cartId, productId],
+    );
+
+    if (cartItems.rowCount === 0)
+      return res.status(400).json({ message: "Cart is empty" });
+
+    const cartQuantity = cartItems.rows[0].quantity;
+
+    const currentStock = await client.query(
+      `
+      SELECT current_stock
+      FROM products
+      WHERE id=$1
+      `,
+      [productId],
+    );
+
+    if (currentStock.rowCount === 0)
+      return res.status(400).json({ message: "Product is not available" });
+
+    if (currentStock.rows[0].current_stock >= cartQuantity + 1) {
+      await client.query(
+        `
+	      UPDATE cart_items
+	      SET quantity = quantity + 1
+	      WHERE cart_id=$1 AND product_id=$2
+	      `,
+        [cartId, productId],
+      );
+    } else {
+      return res
+        .status(400)
+        .json({ message: "Max amount reached. Cannot add more into cart" });
+    }
+
+    const newTotal = await client.query(
+      `
+      SELECT SUM(quantity*price_at_add) as total
+      FROM cart_items
+      WHERE cart_id=$1
+      `,
+      [cartId],
+    );
+
+    //Update total price in cart
+    await client.query(
+      `
+      UPDATE cart
+      SET total_price=$1
+      WHERE id=$2
+      `,
+      [newTotal.rows[0].total, cartId],
+    );
+
+    return res.status(200).json({ message: "Cart updated" });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const decreaseItemQuantity = async (req, res) => {
+  const { cartId, productId } = req.body;
+
+  try {
+    if (!cartId || !productId)
+      return res.status(400).json({ message: "Data not provided" });
+
+    //Get product quantity in cart
+
+    const cartItem = await client.query(
+      `
+      SELECT quantity, 
+      SUM(quantity*price_at_add) as total
+      FROM cart_items
+      WHERE cart_id=$1 AND product_id=$2
+      GROUP BY quantity
+      `,
+      [cartId, productId],
+    );
+
+    if (cartItem.rowCount === 0) {
+      return res.status(404).json({ message: "Item not found in cart" });
+    }
+
+    const itemQuantity = cartItem.rows[0].quantity;
+
+    if (itemQuantity > 1) {
+      await client.query(
+        `
+        UPDATE cart_items
+        SET quantity = quantity - 1
+        WHERE cart_id=$1 AND product_id=$2
+        `,
+        [cartId, productId],
+      );
+    } else {
+      await client.query(
+        `
+        DELETE FROM cart_items
+        WHERE cart_id=$1 AND product_id=$2
+        `,
+        [cartId, productId],
+      );
+    }
+
+    const newTotal = await client.query(
+      `
+      SELECT SUM(quantity*price_at_add) as total
+      FROM cart_items
+      WHERE cart_id=$1
+      `,
+      [cartId],
+    );
+
+    await client.query(
+      `
+      UPDATE cart
+      SET total_price=$1
+      WHERE id=$2
+      `,
+      [newTotal.rows[0].total ?? 0, cartId],
+    );
+
+    return res.status(200).json({
+      message: "Cart updated",
+      removed: itemQuantity === 1,
+      newQuantity: itemQuantity > 1 ? itemQuantity - 1 : 0,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

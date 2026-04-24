@@ -12,17 +12,17 @@ import isManager from "../middleware/isManager.js";
 
 const productRouter = Router();
 
-productRouter.route("/products").get(getAllProducts);
+productRouter.route("/").get(getAllProducts);
 productRouter
-  .route("/products/:id")
+  .route("/:id")
   .get(getProductById)
   .put(authMiddleware, isManager, updateProductById)
   .delete(deleteProductById);
 productRouter
-  .route("/products/stock/:id")
+  .route("/stock/:id")
   .put(authMiddleware, isManager, updateStockByProductId);
 productRouter
-  .route("/products/add")
+  .route("/add")
   .post(authMiddleware, isManager, addNewProduct);
 
 export default productRouter;

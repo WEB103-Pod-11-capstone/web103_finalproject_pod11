@@ -11,7 +11,17 @@ const getUsers = async () => {
     }
 };
 
+const getUserProfile = async () => {
+  const token = localStorage.getItem('token');
 
+  const res = await axios.get(`${API_URL}/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return res.data;
+}
 
 const loginUser = async (credentials) => {
     try {
@@ -77,6 +87,7 @@ const deleteUser = async (id) => {
 
 export default {
     getUsers,
+    getUserProfile,
     loginUser,
     createUser,
     updateUser,

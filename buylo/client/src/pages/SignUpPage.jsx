@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { Link , useNavigate } from 'react-router-dom';
 import '../styles/SignUpPage.css'; 
+import { AuthContext } from '../context/AuthContext'; 
 import UsersAPI from '../services/UsersAPI'; 
 
 const SignUpPage = () => {
@@ -13,6 +14,7 @@ const SignUpPage = () => {
     agreeToTerms: false
   });
 
+  const { login } = useContext(AuthContext);  
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -43,7 +45,9 @@ const SignUpPage = () => {
         if (result && result.token) {
         // Save the token so the user stays logged in
         localStorage.setItem("token", result.token);
-        
+        localStorage.setItem('token', result.token);
+        const user = await UsersAPI.getUserProfile();        
+        login(user, result.token); 
         alert("Registration successful! Welcome to BuyLo.");
         
         // Go straight to the home/products page instead of login

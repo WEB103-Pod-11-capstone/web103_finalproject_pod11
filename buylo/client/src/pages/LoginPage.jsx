@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react'; 
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext'; 
 import UsersAPI from '../services/UsersAPI'; 
 import '../styles/LogInPage.css';
 
@@ -9,31 +10,34 @@ const LogInPage = () => {
     password: ''
   });
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
+ 
+  const { login } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials(prev => ({ ...prev, [name]: value }));
   };
 
- const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const result = await UsersAPI.loginUser({
-      email: credentials.email,
-      password: credentials.password
-    });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await UsersAPI.loginUser({
+        email: credentials.email,
+        password: credentials.password
+      });
 
-    if (result.token) {
-       localStorage.setItem("token", result.token);    
-      
-       navigate("/");
+      if (result.token) {
+        localStorage.setItem('token', result.token);
+        const user = await UsersAPI.getUserProfile();     
+        login(user, result.token); 
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      alert(err.response?.data?.message || "Login failed. Please check your credentials and try again.");
     }
-  } catch (err) {
-    console.log( err)
-    alert("Invalid email or password. Please try again.");
-  }
-};
+  };
 
   return (
     <main className="container login-container">
@@ -67,7 +71,6 @@ const LogInPage = () => {
             />
           </label>
 
-          {/* Changed anchor to Link */}
           <Link to="/forgot-password" className="forgot-password-link">
             Forgot Password?
           </Link>
@@ -80,7 +83,6 @@ const LogInPage = () => {
         <footer className="login-footer">
           <p>
             Don't have an account? 
-            {/* Changed anchor to Link */}
             <Link to="/signup" className="create-account-link"> [Create One]</Link>
           </p>
         </footer>

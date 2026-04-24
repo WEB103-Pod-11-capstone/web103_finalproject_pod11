@@ -18,3 +18,13 @@ export const isUrlValid = (url) => {
     /^https?:\/\/([\da-z\.-]+)\.([a-z]{2,6})(\/[\w\.-]*)*(\?[;&\w\.\+=\-]*)?\/?$/;
   return urlRegex.test(url.trim());
 };
+
+export const isAddressValid = (address) => {
+  const addressRegex = /^\d+\s[\w\s.,-]+$/;
+  return addressRegex.test(address.trim());
+};
+
+export const isPhoneNumberValid = (phone) => {
+  const phoneRegex = /^\+?1?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+  return phoneRegex.test(phone.trim());
+};

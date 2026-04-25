@@ -16,7 +16,7 @@ export const registerUser = async (req, res) => {
         .json({ message: "All fields are required to register." });
     }
 
-    //Valid first name & last name Validations ||
+    //Valid first name & last name Validations || Passed ✅
     if (!isNameValid(first_name) || !isNameValid(last_name)) {
       return res
         .status(400)
@@ -173,7 +173,7 @@ export const getAllUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   // const { userId } = req.params;
-   const userId = req.params.userId || (req.user && req.user.id);
+  const userId = req.params.userId || (req.user && req.user.id);
 
   try {
     if (!userId) {

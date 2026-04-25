@@ -17,12 +17,10 @@ productRouter
   .route("/:id")
   .get(getProductById)
   .put(authMiddleware, isManager, updateProductById)
-  .delete(deleteProductById);
+  .delete(authMiddleware, isManager, deleteProductById);
 productRouter
   .route("/stock/:id")
   .put(authMiddleware, isManager, updateStockByProductId);
-productRouter
-  .route("/add")
-  .post(authMiddleware, isManager, addNewProduct);
+productRouter.route("/add").post(authMiddleware, isManager, addNewProduct);
 
 export default productRouter;

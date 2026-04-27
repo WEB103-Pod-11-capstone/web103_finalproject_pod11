@@ -61,23 +61,23 @@ Shoppers can filter products by category to narrow down their choices.
 
 ![Category Filter](gifs/category-filter.gif)
 
-### Shopping Cart
+### ✅ Shopping Cart
 
 Shoppers can add items to a cart and keep track of products they want to buy.
 
-[gif goes here]
+![Adding to Shopping Cart](gifs/shopping-cart.gif)
 
-### Cart Review and Total
+### ✅Cart Review and Total
 
 Shoppers can view their cart, update quantities, remove items, and see the total price before checkout.
 
-[gif goes here]
+![Shopping Cart Review](gifs/shopping-cart-review.gif)
 
-### Checkout and Order Confirmation
+### ✅ Checkout and Order Confirmation
 
 Shoppers can complete a purchase and receive a confirmation message after placing an order.
 
-[gif goes here]
+![Checkout](gifs/checkout.gif)
 
 ### User Accounts
 

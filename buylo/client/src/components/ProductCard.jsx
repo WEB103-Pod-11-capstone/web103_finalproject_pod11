@@ -3,13 +3,24 @@ import '../styles/ProductCard.css';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi"; 
 
+import { useCart } from '../context/CartContext';
+
+
 const ProductCard = ({ product }) => {
+
+  const { addItemToCart } = useCart();
 
   const handleAddToCart = (e) => {
     // This is CRITICAL: It stops the Link from navigating 
     // to the details page when you just want to add to cart.
     e.preventDefault();
     e.stopPropagation();
+
+    addItemToCart(product, 1);
+
+    alert(`${product.name} added to cart`);
+
+    
     console.log("Added to cart:", product.name);
   };
 

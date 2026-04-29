@@ -67,7 +67,7 @@ const ProductDetailsPage = () => {
 
   const handleAddToCart = () => {
     addItemToCart(product, Number(selectedQty));
-    alert(`${selectedQty} ${product.name} added to cart`);
+    // alert(`${selectedQty} ${product.name} added to cart`);
   };
 
   return (

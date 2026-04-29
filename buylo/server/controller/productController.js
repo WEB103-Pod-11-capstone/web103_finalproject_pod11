@@ -9,7 +9,10 @@ const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?";
 
 export const addNewProduct = async (req, res) => {
   const { name, price, current_quantity, category, description, image_url } = req.body;
-  const imageUrl = image_url && isUrlValid(image_url) ? image_url : FALLBACK_IMAGE_URL+`text=${encodeURIComponent(name)}`;
+  const descriptionText = description && description.trim() ? description.trim() : "No description available.";
+  const imageUrl = image_url && isUrlValid(image_url)
+    ? image_url
+    : FALLBACK_IMAGE_URL + `text=${encodeURIComponent(name || 'Product')}`;
 
   try {
     //All fields validation || Passed ✅
@@ -17,8 +20,7 @@ export const addNewProduct = async (req, res) => {
       !name ||
       !price ||
       !current_quantity ||
-      !category ||
-      !description
+      !category
     ) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -46,7 +48,7 @@ export const addNewProduct = async (req, res) => {
         message: "Stock quantity must be a non-negative numerical value",
       });
     }
-console.loh(newProduct)
+
     const newProduct = await client.query(
       `
       INSERT INTO products(name, price, current_quantity, category, description, image_url)

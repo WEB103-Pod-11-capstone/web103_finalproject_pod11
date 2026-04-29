@@ -79,7 +79,7 @@ Shoppers can complete a purchase and receive a confirmation message after placin
 
 ![Checkout](gifs/checkout.gif)
 
-### User Accounts
+### ✅ User Accounts
 
 Shoppers can create an account so their information can be saved for future visits.
 

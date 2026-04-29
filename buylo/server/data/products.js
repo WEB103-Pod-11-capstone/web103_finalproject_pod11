@@ -7,7 +7,7 @@ const products = [
     current_quantity: 5,
     category: "Furniture",
     description: "Solid reclaimed teak wood with industrial steel legs.",
-    image_url: "https://placehold.co/400x500?text=Teak+Coffee+Table"
+    image_url: "/products/teak-coffee-table.png"
   },
   {
     id: 2,
@@ -16,7 +16,7 @@ const products = [
     current_quantity: 3,
     category: "Furniture",
     description: "Emerald green velvet chair with gold-finished legs.",
-    image_url: "https://placehold.co/400x500?text=Velvet+Chair"
+    image_url: "/products/velvet-accent-chair.png"
   },
   {
     id: 3,
@@ -25,7 +25,7 @@ const products = [
     current_quantity: 7,
     category: "Furniture",
     description: "Five-tier open shelving unit made from light oak.",
-    image_url: "https://placehold.co/400x500?text=Oak+Bookshelf"
+    image_url: "/products/minimalist-oak-bookshelf.png"
   },
 
   // CATEGORY 2: Home Decor
@@ -36,7 +36,7 @@ const products = [
     current_quantity: 15,
     category: "Home Decor",
     description: "Hand-crafted matte white ceramic vase for dried flowers.",
-    image_url: "https://placehold.co/400x500?text=Ceramic+Vase"
+    image_url: "/products/minimalist-ceramic-vase.png"
   },
   {
     id: 5,
@@ -45,7 +45,7 @@ const products = [
     current_quantity: 24,
     category: "Home Decor",
     description: "100% organic linen cover with hypoallergenic fill.",
-    image_url: "https://placehold.co/400x500?text=Linen+Pillow"
+    image_url: "/products/linen-throw-pillow.png"
   },
   {
     id: 6,
@@ -54,7 +54,7 @@ const products = [
     current_quantity: 40,
     category: "Home Decor",
     description: "Sandalwood and Sage scented hand-poured soy wax.",
-    image_url: "https://placehold.co/400x500?text=Soy+Candle"
+    image_url: "/products/scented-soy-candle.png"
   },
 
   // CATEGORY 3: Lighting

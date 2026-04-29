@@ -8,25 +8,48 @@ import { FiHeart , FiShoppingCart } from "react-icons/fi"; // Feather: Thin, mod
 
 import '../styles/ProductDetailsPage.css';
 
+import { useCart } from '../context/CartContext';
+
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const [selectedQty, setSelectedQty] = useState(1);
-  const [product,setProduct] = useState({})
+
+  const { addItemToCart } = useCart();
+
+
+  // const [product,setProduct] = useState({})
+  const [product, setProduct] = useState(null);
+
+  const [loading, setLoading] = useState(true);
   
   // Find the product by ID (matching the URL param)
   // const product = MOCK_PRODUCTS.find((p) => p.id === parseInt(id));
   useEffect(()=>{
     const fetchProduct = async()=>{
       try{
+        setLoading(true);
         const data = await ProductsAPI.getProductById(id);
         setProduct(data);
       }catch(error){
         console.error("Failed to load the selected product:", error);
+        setProduct(null);
+      } finally {
+        setLoading(false);
       }
-    }
+    };
     fetchProduct()
-  },[])
+  },[id]);
+
+
+  if (loading) {
+    return (
+      <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
+        <h2>Loading product...</h2>
+      </div>
+    );
+  }
+
 
   // Handle case where product isn't found
   if (!product) {
@@ -41,6 +64,11 @@ const ProductDetailsPage = () => {
   // Generate numbers from 1 up to the total stock (max 10 for clean UI)
   const stockLimit = Math.min(product.current_quantity, 10);
   const qtyOptions = Array.from({ length: stockLimit }, (_, i) => i + 1);
+
+  const handleAddToCart = () => {
+    addItemToCart(product, Number(selectedQty));
+    alert(`${selectedQty} ${product.name} added to cart`);
+  };
 
   return (
     <main className="details-container">
@@ -77,7 +105,8 @@ const ProductDetailsPage = () => {
             <select 
                 id="qty" 
                 value={selectedQty} 
-                onChange={(e) => setSelectedQty(e.target.value)}
+                // onChange={(e) => setSelectedQty(e.target.value)}
+                 onChange={(e) => setSelectedQty(Number(e.target.value))}
               >
                 {qtyOptions.map(num => (
                   <option key={num} value={num}>{num}</option>
@@ -85,7 +114,8 @@ const ProductDetailsPage = () => {
           </select>
           </div>
           <div className="action-row">
-            <button className="add-to-cart-large">
+            {/* <button className="add-to-cart-large"> */}
+            <button className="add-to-cart-large" onClick={handleAddToCart}>
                    <FiShoppingCart style={{ marginRight: '8px' }} />
                     ADD TO CART  
           </button>

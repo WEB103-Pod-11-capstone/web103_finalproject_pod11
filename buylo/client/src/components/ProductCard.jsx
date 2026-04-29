@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi"; 
 
 import { useCart } from '../context/CartContext';
+import { useToast } from '../context/useToast';
 
 const ProductCard = ({ product }) => {
 
   const { addItemToCart } = useCart();
+  const { success } = useToast();
 
   const handleAddToCart = (e) => {
     // This is CRITICAL: It stops the Link from navigating 
@@ -16,7 +18,7 @@ const ProductCard = ({ product }) => {
     e.stopPropagation();
 
     addItemToCart(product, 1);
-    alert(`${product.name} added to cart`); // temporarily for testing
+    success(`${product.name} added to cart`);
 
     console.log("Added to cart:", product.name);
   };

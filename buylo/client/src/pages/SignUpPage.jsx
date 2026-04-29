@@ -1,63 +1,97 @@
-import React, { useState , useContext } from 'react';
-import { Link , useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/SignUpPage.css'; 
 import { AuthContext } from '../context/AuthContext'; 
+import { useToast } from '../context/useToast';
 import UsersAPI from '../services/UsersAPI'; 
+// 1. Import the validation functions
+import { isValidEmail, isNameValid } from '../utils/validation';
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
     first_name: '',
-    last_name:'',
+    last_name: '',
     email: '',
     password: '',
     confirmPassword: '',
     agreeToTerms: false
   });
 
+  // 2. Add error state
+  const [error, setError] = useState('');
+
   const { login } = useContext(AuthContext);  
   const navigate = useNavigate();
+  const { success } = useToast();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    if (error) setError(''); // Clear errors as user types
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // --- 3. FRONTEND VALIDATION LOGIC ---
+    if (!isNameValid(formData.first_name)) {
+      setError("First name should only contain letters.");
+      return;
+    }
+
+    if (!isNameValid(formData.last_name)) {
+      setError("Last name should only contain letters.");
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match!");
-        return;
+      setError("Passwords do not match!");
+      return;
     }
 
-    try{
-        const result = await UsersAPI.createUser({
-          first_name: formData.first_name,
-          last_name: formData.last_name,
-          email: formData.email,
-          password: formData.password,
-          confirm_password: formData.confirmPassword
-        });
-        
+    if (!formData.agreeToTerms) {
+      setError("You must agree to the Terms & Conditions.");
+      return;
+    }
+    // ------------------------------------
 
-        if (result && result.token) {
-        // Save the token so the user stays logged in
+    try {
+      const result = await UsersAPI.createUser({
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        password: formData.password,
+        confirm_password: formData.confirmPassword
+      });
+
+      if (result && result.token) {
         localStorage.setItem("token", result.token);
-        localStorage.setItem('token', result.token);
         const user = await UsersAPI.getUserProfile();        
-        login(user, result.token); 
-        alert("Registration successful! Welcome to BuyLo.");
+        login(user, result.token);
+        success("Registration successful! Welcome to BuyLo.");
         
-        // Go straight to the home/products page instead of login
-        navigate("/"); 
+        // Give context time to update before navigating
+        setTimeout(() => {
+          navigate("/"); 
+        }, 500);
+      }
+    } catch (error) {
+      console.error("Error creating account:", error);
+      setError(error.response?.data?.message || "An error occurred during registration.");
     }
-    }catch( error){
-        console.error("Error creating account:", error);
-    }
-
-    
   };
 
   return (
@@ -66,6 +100,21 @@ const SignUpPage = () => {
         <header className="signup-header">
           <h2>CREATE YOUR ACCOUNT</h2>
         </header>
+
+        {/* 4. Display Error Message Banner */}
+        {error && (
+          <div className="error-message" style={{ 
+            color: '#721c24', 
+            backgroundColor: '#f8d7da', 
+            border: '1px solid #f5c6cb', 
+            padding: '10px', 
+            marginBottom: '15px', 
+            borderRadius: '4px',
+            textAlign: 'center' 
+          }}>
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           <label htmlFor="firstName">
@@ -80,7 +129,7 @@ const SignUpPage = () => {
               required
             />
           </label>
-          <label htmlFor="last_Name">
+          <label htmlFor="lastName">
             Last Name:
             <input
               type="text"
@@ -112,7 +161,7 @@ const SignUpPage = () => {
               type="password"
               id="password"
               name="password"
-              placeholder="Create password"
+              placeholder="6+ characters"
               value={formData.password}
               onChange={handleChange}
               required

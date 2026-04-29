@@ -9,6 +9,7 @@ import { FiHeart , FiShoppingCart } from "react-icons/fi"; // Feather: Thin, mod
 import '../styles/ProductDetailsPage.css';
 
 import { useCart } from '../context/CartContext';
+import { useToast } from '../context/useToast';
 
 
 const ProductDetailsPage = () => {
@@ -16,6 +17,7 @@ const ProductDetailsPage = () => {
   const [selectedQty, setSelectedQty] = useState(1);
 
   const { addItemToCart } = useCart();
+  const { success } = useToast();
 
 
   // const [product,setProduct] = useState({})
@@ -67,7 +69,7 @@ const ProductDetailsPage = () => {
 
   const handleAddToCart = () => {
     addItemToCart(product, Number(selectedQty));
-    // alert(`${selectedQty} ${product.name} added to cart`);
+    success(`${selectedQty} ${product.name} added to cart`);
   };
 
   return (

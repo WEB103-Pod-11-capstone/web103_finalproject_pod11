@@ -4,7 +4,7 @@ CodePath WEB103 Final Project
 
 Designed and developed by: Raul Chavez, Daminda Dinesh, Jose Calderon, Alex Rozin
 
-🔗 Link to deployed app: To be added in a later milestone
+🔗 Link to deployed app: https://buylo.onrender.com/
 
 ## About
 
@@ -61,23 +61,23 @@ Shoppers can filter products by category to narrow down their choices.
 
 ![Category Filter](gifs/category-filter.gif)
 
-### Shopping Cart
+### ✅ Shopping Cart
 
 Shoppers can add items to a cart and keep track of products they want to buy.
 
-[gif goes here]
+![Shopping Cart](gifs/shopping-cart.gif)
 
-### Cart Review and Total
+### ✅ Cart Review and Total
 
 Shoppers can view their cart, update quantities, remove items, and see the total price before checkout.
 
-[gif goes here]
+![Cart Review](gifs/cart-review.gif)
 
-### Checkout and Order Confirmation
+### ✅ Checkout and Order Confirmation
 
 Shoppers can complete a purchase and receive a confirmation message after placing an order.
 
-[gif goes here]
+![Checkout](gifs/checkout.gif)
 
 ### User Accounts
 

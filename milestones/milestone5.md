@@ -82,6 +82,10 @@ Complete the checklist below detailing each baseline, custom, and stretch featur
 
 ![Project Walkthrough](gifs/project-walkthrough.gif)
 
+
+
+![Project GIF](gifs/project-walkthrough.gif)
+
 ## Reflection
 
 ### 1. What went well during this unit?

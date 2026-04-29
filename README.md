@@ -83,7 +83,7 @@ Shoppers can complete a purchase and receive a confirmation message after placin
 
 Shoppers can create an account so their information can be saved for future visits.
 
-[gif goes here]
+![User Account](gifs/user_account.gif)
 
 ### Store Manager Dashboard
 

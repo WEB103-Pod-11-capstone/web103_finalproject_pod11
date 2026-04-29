@@ -84,7 +84,13 @@ Complete the checklist below detailing each baseline, custom, and stretch featur
 
 
 
-![Project GIF](gifs/project-walkthrough.gif)
+<div>
+    <a href="https://www.loom.com/share/36963bce2d7b4c5cba6f38a7d1716aab">
+    </a>
+    <a href="https://www.loom.com/share/36963bce2d7b4c5cba6f38a7d1716aab">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/36963bce2d7b4c5cba6f38a7d1716aab-d5d5e3540b594dae-full-play.gif#t=0.1">
+    </a>
+  </div>
 
 ## Reflection
 

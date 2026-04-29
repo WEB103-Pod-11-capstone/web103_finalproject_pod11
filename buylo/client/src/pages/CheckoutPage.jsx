@@ -1,108 +1,167 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import '../styles/CartPage.css';
+import '../styles/CheckoutPage.css';
 
-const CartPage = () => {
-  const {
-    cartItems,
-    updateItemQuantity,
-    removeItemFromCart,
-    total,
-  } = useCart();
+const CheckoutPage = () => {
+  const { cartItems, total, clearCart } = useCart();
 
-  return (
-    <main className="cart-container">
-      <section className="cart-header">
-        <h1>Your Cart</h1>
-        <p>Review your selected items before checkout.</p>
-      </section>
+  // ADDED: form state for checkout fields
+  const [formData, setFormData] = useState({
+    fullName: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+  });
 
-      {cartItems.length === 0 ? (
-        <section className="cart-empty-state">
-          <h2>Your cart is empty</h2>
-          <p>Add a few products from the catalog to continue.</p>
+  // ADDED: state for success/error handling
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  // ADDED: if cart is empty and order is not placed, go back to cart
+  if (cartItems.length === 0 && !orderPlaced) {
+    return <Navigate to="/cart" />;
+  }
+
+  // ADDED: handle form changes
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  // ADDED: handle checkout submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.fullName.trim() ||
+      !formData.address.trim() ||
+      !formData.city.trim() ||
+      !formData.state.trim() ||
+      !formData.zipCode.trim()
+    ) {
+      setErrorMessage('Please fill out all checkout fields.');
+      return;
+    }
+
+    setErrorMessage('');
+    clearCart();
+    setOrderPlaced(true);
+  };
+
+  // ADDED: success screen after order is placed
+  if (orderPlaced) {
+    return (
+      <main className="checkout-container">
+        <section className="checkout-confirmation-card">
+          <h1>Order Confirmed</h1>
+          <p>Thank you for your purchase. Your order has been placed successfully.</p>
           <Link to="/" role="button">
-            Continue Shopping
+            Return to Shop
           </Link>
         </section>
-      ) : (
-        <div className="cart-layout">
-          <section className="cart-items-section">
-            {cartItems.map((item) => {
-              const maxQty = Math.min(item.current_quantity ?? 10, 10);
+      </main>
+    );
+  }
 
-              return (
-                <article key={item.id} className="cart-item-card">
-                  <div className="cart-item-image">
-                    <img src={item.image_url} alt={item.name} />
-                  </div>
+  return (
+    <main className="checkout-container">
+      <section className="checkout-header">
+        <h1>Checkout</h1>
+        <p>Enter your shipping details and review your order.</p>
+      </section>
 
-                  <div className="cart-item-details">
-                    <span className="cart-item-category">{item.category}</span>
-                    <h3>{item.name}</h3>
-                    <p className="cart-item-description">{item.description}</p>
-                    <p className="cart-item-price">${Number(item.price).toFixed(2)}</p>
-                  </div>
+      <div className="checkout-layout">
+        <section className="checkout-form-card">
+          <h2>Shipping Information</h2>
 
-                  <div className="cart-item-actions">
-                    <label htmlFor={`qty-${item.id}`}>Qty</label>
-                    <select
-                      id={`qty-${item.id}`}
-                      value={item.quantity}
-                      onChange={(e) =>
-                        updateItemQuantity(item.id, e.target.value)
-                      }
-                    >
-                      {Array.from({ length: maxQty }, (_, i) => i + 1).map((num) => (
-                        <option key={num} value={num}>
-                          {num}
-                        </option>
-                      ))}
-                    </select>
+          {errorMessage && <p className="checkout-error">{errorMessage}</p>}
 
-                    <p className="cart-item-subtotal">
-                      ${(Number(item.price) * Number(item.quantity)).toFixed(2)}
-                    </p>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Full Name
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+              />
+            </label>
 
-                    <button
-                      className="secondary outline"
-                      onClick={() => removeItemFromCart(item.id)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </article>
-              );
-            })}
-          </section>
+            <label>
+              Address
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+              />
+            </label>
 
-          <aside className="cart-summary-card">
-            <h2>Order Summary</h2>
+            <div className="checkout-row">
+              <label>
+                City
+                <input
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                />
+              </label>
 
-            <div className="cart-summary-row">
-              <span>Items</span>
-              <span>{cartItems.length}</span>
+              <label>
+                State
+                <input
+                  type="text"
+                  name="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                />
+              </label>
             </div>
 
-            <div className="cart-summary-row">
-              <span>Total</span>
-              <span>${Number(total).toFixed(2)}</span>
-            </div>
+            <label>
+              Zip Code
+              <input
+                type="text"
+                name="zipCode"
+                value={formData.zipCode}
+                onChange={handleChange}
+              />
+            </label>
 
-            <div className="cart-summary-actions">
-              <Link to="/" role="button" className="secondary">
-                Continue Shopping
+            <div className="checkout-actions">
+              <Link to="/cart" role="button" className="secondary">
+                Back to Cart
               </Link>
-              <Link to="/checkout" role="button">
-                Proceed to Checkout
-              </Link>
+              <button type="submit">Confirm Purchase</button>
             </div>
-          </aside>
-        </div>
-      )}
+          </form>
+        </section>
+
+        <aside className="checkout-summary-card">
+          <h2>Order Summary</h2>
+
+          {cartItems.map((item) => (
+            <div key={item.id} className="checkout-summary-item">
+              <span>
+                {item.name} × {item.quantity}
+              </span>
+              <span>${(Number(item.price) * Number(item.quantity)).toFixed(2)}</span>
+            </div>
+          ))}
+
+          <div className="checkout-summary-total">
+            <span>Total</span>
+            <span>${Number(total).toFixed(2)}</span>
+          </div>
+        </aside>
+      </div>
     </main>
   );
 };
 
-export default CartPage;
+export default CheckoutPage;

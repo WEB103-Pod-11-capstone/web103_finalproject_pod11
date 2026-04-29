@@ -55,9 +55,9 @@ Complete the checklist below detailing each baseline, custom, and stretch featur
 - [ ] The project includes a one-to-one database relationship
 - [ ] The project includes a slide-out pane or modal as appropriate for your use case that pops up and covers the page content without navigating away from the current page
 - [x] The project includes a unique field within the join table
-- [x] The project includes a custom non-RESTful route with corresponding controller actions
+- [ ] The project includes a custom non-RESTful route with corresponding controller actions
 - [x] The user can filter or sort items based on particular criteria as appropriate for your use case
-- [x] Data is automatically generated in response to a certain event or user action. Examples include generating a default inventory for a new user starting a game or creating a starter set of tasks for a user creating a new task app account
+- [ ] Data is automatically generated in response to a certain event or user action. Examples include generating a default inventory for a new user starting a game or creating a starter set of tasks for a user creating a new task app account
 - [x] Data submitted via a POST or PATCH request is validated before the database is updated (e.g. validating that an event is in the future before allowing a new event to be created)
   - [x] *To receive full credit, please be sure to demonstrate in your walkthrough that for certain inputs, the item will NOT be successfully created or updated.*
 
@@ -68,7 +68,7 @@ Complete the checklist below detailing each baseline, custom, and stretch featur
 - [ ] A subset of pages require the user to log in before accessing the content
   - [ ] Users can log in and log out via GitHub OAuth with Passport.js
 - [ ] Restrict available user options dynamically, such as restricting available purchases based on a user's currency
-- [x] Show a spinner while a page or page element is loading
+- [ ] Show a spinner while a page or page element is loading
 - [ ] Disable buttons and inputs during the form submission process
 - [ ] Disable buttons after they have been clicked
   - *At least 75% of buttons in your app must exhibit this behavior to receive full credit*

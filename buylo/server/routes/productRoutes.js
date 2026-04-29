@@ -12,7 +12,7 @@ import isManager from "../middleware/isManager.js";
 
 const productRouter = Router();
 
-productRouter.route("/").get(getAllProducts);
+productRouter.route("/").get(getAllProducts).post(addNewProduct);
 productRouter
   .route("/:id")
   .get(getProductById)
@@ -21,8 +21,5 @@ productRouter
 productRouter
   .route("/stock/:id")
   .put(authMiddleware, isManager, updateStockByProductId);
-productRouter
-  .route("/add")
-  .post(authMiddleware, isManager, addNewProduct);
 
 export default productRouter;

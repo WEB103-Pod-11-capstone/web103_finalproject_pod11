@@ -1,7 +1,7 @@
 import { useRoutes, useLocation  } from 'react-router-dom';
 import './App.css'
 import MainNav from './components/MainNav';
-
+import ProtectedRoute from './components/ProtectedRoute';
 import { useState } from 'react';
 
 import { 
@@ -57,11 +57,16 @@ const App = () => {
     },
     {
       path:"/admin",
-      element:<AdminDashboardPage />
+      element:
+      <ProtectedRoute adminOnly={true}>
+        <AdminDashboardPage />
+      </ProtectedRoute>
     },
     {
       path:"/admin/edit/:id",
-      element:<EditProductPage />
+      element:<ProtectedRoute adminOnly={true}>
+        <EditProductPage />
+      </ProtectedRoute>
     }
 
 

@@ -3,8 +3,9 @@ import { useParams, Link } from 'react-router-dom';
 import ProductsAPI  from '../services/ProductsAPI'
 import { FiHeart , FiShoppingCart } from "react-icons/fi"; // Feather: Thin, modern outline
 
-
 import { useCart } from '../context/CartContext';
+
+const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?text=Desk+Lamp";
 
 // import { MOCK_PRODUCTS } from '../mockData';
 
@@ -80,7 +81,14 @@ const ProductDetailsPage = () => {
       <div className="product-layout">
         {/* Left Side: Large Image */}
         <div className="product-image-section">
-          <img src={product.image_url} alt={product.name} />
+          <img
+            src={product.image_url || FALLBACK_IMAGE_URL}
+            alt={product.name}
+            onError={(e) => {
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = FALLBACK_IMAGE_URL;
+            }}
+          />
         </div>
 
         {/* Right Side: Info & Actions */}

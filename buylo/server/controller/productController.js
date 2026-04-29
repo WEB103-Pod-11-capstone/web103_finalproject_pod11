@@ -5,18 +5,20 @@ import {
   isUrlValid,
 } from "../utils/validators.js";
 
+const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?";
+
 export const addNewProduct = async (req, res) => {
-  const { name, price, current_stock, category, description, image } = req.body;
+  const { name, price, current_quantity, category, description, image_url } = req.body;
+  const imageUrl = image_url && isUrlValid(image_url) ? image_url : FALLBACK_IMAGE_URL+`text=${encodeURIComponent(name)}`;
 
   try {
     //All fields validation || Passed ✅
     if (
       !name ||
       !price ||
-      !current_stock ||
+      !current_quantity ||
       !category ||
-      !description ||
-      !image
+      !description
     ) {
       return res.status(400).json({ message: "All fields are required" });
     }
@@ -32,30 +34,25 @@ export const addNewProduct = async (req, res) => {
     }
 
     //Product price validation || Passed ✅
-    if (isNaN(price)) {
+    if (isNaN(price) || price <= 0) {
       return res
         .status(400)
-        .json({ message: "Price must be a numerical value" });
+        .json({ message: "Price must be a positive numerical value" });
     }
 
     //Current stock validation || Passed ✅
-    if (isNaN(current_stock) || current_stock < 0) {
+    if (isNaN(current_quantity) || current_quantity < 0) {
       return res.status(400).json({
-        message: "Stock quantity must be a numerical value greater than 0",
+        message: "Stock quantity must be a non-negative numerical value",
       });
     }
-
-    //Product image URL validation || Passed ✅
-    if (!isUrlValid(image)) {
-      return res.status(400).json({ message: "Invalid image URL" });
-    }
-
+console.loh(newProduct)
     const newProduct = await client.query(
       `
-      INSERT INTO products(name, price, current_stock, category, description, image)
+      INSERT INTO products(name, price, current_quantity, category, description, image_url)
       VALUES($1, $2, $3, $4, $5, $6)
       `,
-      [name, price, current_stock, category, description, image],
+      [name, price, current_quantity, category, description, imageUrl],
     );
 
     return res.status(201).json({ message: "Product added successfully" });

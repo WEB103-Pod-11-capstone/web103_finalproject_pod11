@@ -144,7 +144,7 @@ export const loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" },
     );
-
+    console.log("User logged in successfully:", { email: user.rows[0].email, user_role: user.rows[0].user_role });
     return res.status(200).json({ token, message: "Login successfully" });
   } catch (error) {
     console.error(error);
@@ -182,7 +182,7 @@ export const getUserById = async (req, res) => {
 
     const user = await client.query(
       `
-      SELECT first_name, last_name, email
+      SELECT first_name, last_name, email, user_role
       FROM users
       WHERE id=$1
       `,

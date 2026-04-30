@@ -13,7 +13,7 @@ export const addNewProduct = async (req, res) => {
   const imageUrl = image_url && isUrlValid(image_url)
     ? image_url
     : FALLBACK_IMAGE_URL + `text=${encodeURIComponent(name || 'Product')}`;
-
+ console.log("Validated product data:", { name, price, current_quantity, category, description: descriptionText, imageUrl });
   try {
     //All fields validation || Passed ✅
     if (
@@ -48,7 +48,7 @@ export const addNewProduct = async (req, res) => {
         message: "Stock quantity must be a non-negative numerical value",
       });
     }
-
+    console.log("Validated product data:", { name, price, current_quantity, category, description: descriptionText, imageUrl });
     const newProduct = await client.query(
       `
       INSERT INTO products(name, price, current_quantity, category, description, image_url)
@@ -101,23 +101,24 @@ export const getProductById = async (req, res) => {
   }
 };
 
+
 export const updateProductById = async (req, res) => {
+  const { id } = req.params;
   const {
-    productId,
     name,
     price,
-    current_stock,
+    current_quantity,
     category,
     description,
     image_url,
   } = req.body;
-
+console.log("Received update data:", { id, name, price, current_quantity, category, description, image_url });
   try {
     if (
-      !productId ||
+      !id ||
       !name ||
       !price ||
-      !current_stock ||
+      !current_quantity ||
       !category ||
       !description ||
       !image_url
@@ -127,11 +128,11 @@ export const updateProductById = async (req, res) => {
 
     const product = await client.query(
       `
-        SELECT current_stock
+        SELECT current_quantity
         FROM products
         WHERE id=$1
         `,
-      [productId],
+      [id],
     );
 
     if (product.rowCount === 0)
@@ -140,10 +141,10 @@ export const updateProductById = async (req, res) => {
     await client.query(
       `
         UPDATE products
-        SET name=$1, price=$2, current_stock=$3, category=$4, description=$5, image=$6
+        SET name=$1, price=$2, current_quantity=$3, category=$4, description=$5, image_url=$6
         WHERE id=$7
         `,
-      [name, price, current_stock, category, description, image_url, productId],
+      [name, price, current_quantity, category, description, image_url, id],
     );
 
     return res.status(200).json({ message: "Product updated" });
@@ -155,25 +156,25 @@ export const updateProductById = async (req, res) => {
 };
 
 export const updateStockByProductId = async (req, res) => {
-  const { productId, current_stock } = req.body;
+  const { productId, current_quantity } = req.body;
 
   try {
     if (!productId)
       return res.status(400).json({ message: "Data not provided" });
 
-    if (isNaN(current_stock) || current_stock < 0) {
+    if (isNaN(current_quantity) || current_quantity < 0) {
       return res.status(400).json({
-        message: "Current Stock must be a numerical value greater than 0",
+        message: "Current Quantity must be a numerical value greater than 0",
       });
     }
 
     const result = await client.query(
       `
         UPDATE products
-        SET current_stock=$1
+        SET current_quantity=$1
         WHERE id=$2
         `,
-      [current_stock, productId],
+      [current_quantity, productId],
     );
 
     return res.status(200).json({ message: "Quantity updated" });

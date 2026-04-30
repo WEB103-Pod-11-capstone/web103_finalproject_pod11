@@ -8,7 +8,7 @@ const ProductForm = ({ existingProduct, onSave, onCancel }) => {
   const [formData, setFormData] = useState(existingProduct || {
     name: '',
     price: '',
-    current_quantity: '',
+    current_stock: '',
     category: 'Home Decor',
     description: '',
     image_url: ''
@@ -53,7 +53,10 @@ const ProductForm = ({ existingProduct, onSave, onCancel }) => {
             <input type="number" name="price" value={formData.price} onChange={handleChange} required />
           </label>
           <label>Quantity: 
-            <input type="number" name="current_quantity" value={formData.current_quantity} onChange={handleChange} required />
+            <input type="number" name="current_quantity" value={formData.current_quan} onChange={handleChange} required />
+          </label>
+          <label>Description: 
+            <textarea name="description" value={formData.description} onChange={handleChange} />
           </label>
         </div>
         <label style={{ display: 'block', marginTop: '10px' }}>Image Path: 

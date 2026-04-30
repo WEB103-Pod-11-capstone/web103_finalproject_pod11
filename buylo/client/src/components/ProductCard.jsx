@@ -2,22 +2,15 @@ import React from 'react';
 import '../styles/ProductCard.css';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi"; 
-
 import { useCart } from '../context/CartContext';
-<<<<<<< HEAD
 import { useToast } from '../context/useToast';
-=======
 
-const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?text=Desk+Lamp";
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
+
 
 const ProductCard = ({ product }) => {
-
+  const FALLBACK_IMAGE_URL = `https://placehold.co/400x500?text=${product.name.replace(/\s+/g, '+')}`;
   const { addItemToCart } = useCart();
-<<<<<<< HEAD
   const { success } = useToast();
-=======
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
   const handleAddToCart = (e) => {
     // This is CRITICAL: It stops the Link from navigating 
@@ -26,15 +19,8 @@ const ProductCard = ({ product }) => {
     e.stopPropagation();
 
     addItemToCart(product, 1);
-<<<<<<< HEAD
     success(`${product.name} added to cart`);
 
-=======
-
-    alert(`${product.name} added to cart`);
-
-    
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
     console.log("Added to cart:", product.name);
   };
 

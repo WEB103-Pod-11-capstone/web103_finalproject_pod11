@@ -1,0 +1,34 @@
+.form-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    margin-top: 2rem;
+    /* Limit the total width of the button row */
+    width: 100%;
+    max-width: 350px; 
+    
+}
+
+.btn-save, .btn-cancel {
+    flex: 1;                /* Keeps them identical in length */
+    padding: 0.7rem 0;      /* Vertical height */
+    font-size: 0.85rem;     /* Slightly smaller for a cleaner look */
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.btn-save {
+    background-color: #009661;
+    color: white;
+    border: 1px solid #009661;
+}
+
+.btn-cancel {
+    background-color: #ffffff;
+    color: #666;
+    border: 1px solid #ccc;
+}

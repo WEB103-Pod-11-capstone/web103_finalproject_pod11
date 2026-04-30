@@ -16,4 +16,7 @@ userRouter.route("/").get(authMiddleware, getAllUsers);
 userRouter.route("/me").get(authMiddleware, getUserById);
 userRouter.route("/:userId").get(getUserById);
 
+// userRouter.get('/admin/all-users', authMiddleware, getAllUsers);
+// userRouter.delete('/admin/user/:id', authMiddleware, deleteUser);
+
 export default userRouter;

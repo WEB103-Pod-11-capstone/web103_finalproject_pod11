@@ -4,12 +4,20 @@ import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi"; 
 
 import { useCart } from '../context/CartContext';
+<<<<<<< HEAD
 import { useToast } from '../context/useToast';
+=======
+
+const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?text=Desk+Lamp";
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
 const ProductCard = ({ product }) => {
 
   const { addItemToCart } = useCart();
+<<<<<<< HEAD
   const { success } = useToast();
+=======
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
   const handleAddToCart = (e) => {
     // This is CRITICAL: It stops the Link from navigating 
@@ -18,8 +26,15 @@ const ProductCard = ({ product }) => {
     e.stopPropagation();
 
     addItemToCart(product, 1);
+<<<<<<< HEAD
     success(`${product.name} added to cart`);
 
+=======
+
+    alert(`${product.name} added to cart`);
+
+    
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
     console.log("Added to cart:", product.name);
   };
 
@@ -27,7 +42,14 @@ const ProductCard = ({ product }) => {
     <Link to={`/product/${product.id}`} className="product-card-link">
     <article className="product-card">
       <div className="image-container">
-        <img src={product.image_url} alt={product.name} />
+        <img
+          src={product.image_url || FALLBACK_IMAGE_URL}
+          alt={product.name}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = FALLBACK_IMAGE_URL;
+          }}
+        />
       </div>
       
       <div className="card-body">

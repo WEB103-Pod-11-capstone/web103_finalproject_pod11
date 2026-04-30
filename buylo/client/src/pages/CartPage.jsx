@@ -30,7 +30,11 @@ const CartPage = () => {
         <div className="cart-layout">
           <section className="cart-items-section">
             {cartItems.map((item) => {
+<<<<<<< HEAD
               const maxQty = Math.min(item.current_quantity ?? 10, 10);
+=======
+              const maxQty = Math.min(item.current_quantity ?? item.quantity ?? 10, 10);
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
               return (
                 <article key={item.id} className="cart-item-card">
@@ -42,6 +46,11 @@ const CartPage = () => {
                     <span className="cart-item-category">{item.category}</span>
                     <h3>{item.name}</h3>
                     <p className="cart-item-description">{item.description}</p>
+<<<<<<< HEAD
+=======
+
+                    {/* CHANGED: convert item.price to Number before using toFixed */}
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
                     <p className="cart-item-price">${Number(item.price).toFixed(2)}</p>
                   </div>
 
@@ -61,6 +70,10 @@ const CartPage = () => {
                       ))}
                     </select>
 
+<<<<<<< HEAD
+=======
+                    {/* CHANGED: convert price and quantity to numbers before multiplying */}
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
                     <p className="cart-item-subtotal">
                       ${(Number(item.price) * Number(item.quantity)).toFixed(2)}
                     </p>
@@ -87,6 +100,10 @@ const CartPage = () => {
 
             <div className="cart-summary-row">
               <span>Total</span>
+<<<<<<< HEAD
+=======
+              {/* CHANGED: make total safe too */}
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
               <span>${Number(total).toFixed(2)}</span>
             </div>
 

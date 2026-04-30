@@ -65,6 +65,7 @@ Shoppers can filter products by category to narrow down their choices.
 
 Shoppers can add items to a cart and keep track of products they want to buy.
 
+<<<<<<< HEAD
 ![Shopping Cart](gifs/shopping-cart.gif)
 
 ### ✅ Cart Review and Total
@@ -72,22 +73,34 @@ Shoppers can add items to a cart and keep track of products they want to buy.
 Shoppers can view their cart, update quantities, remove items, and see the total price before checkout.
 
 ![Cart Review](gifs/cart-review.gif)
+=======
+![Adding to Shopping Cart](gifs/shopping-cart.gif)
+
+### ✅Cart Review and Total
+
+Shoppers can view their cart, update quantities, remove items, and see the total price before checkout.
+
+![Shopping Cart Review](gifs/shopping-cart-review.gif)
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
 ### ✅ Checkout and Order Confirmation
 
 Shoppers can complete a purchase and receive a confirmation message after placing an order.
 
 ![Checkout](gifs/checkout.gif)
+<<<<<<< HEAD
 
 ### ✅ User Login
 
 ![Login](gifs/login.gif)
+=======
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
-### User Accounts
+### ✅ User Accounts
 
 Shoppers can create an account so their information can be saved for future visits.
 
-[gif goes here]
+![User Account](gifs/user_account.gif)
 
 ### Store Manager Dashboard
 

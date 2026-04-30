@@ -36,12 +36,14 @@ const getProductById = async (id) => {
 const updateProduct = async (id, updatedData) => {
 
     try {
+        const token = localStorage.getItem('token');
         if (!updatedData || Object.keys(updatedData).length === 0) {
             throw new Error('No update data provided');
         }
         const response = await axios.put(`${API_URL}/${id}`, updatedData,{
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : undefined
             }
         });     
         return response.data;
@@ -54,8 +56,12 @@ const updateProduct = async (id, updatedData) => {
 
 const deleteProduct = async (id) => {
     try {
-       
-        const response = await axios.delete(`${API_URL}/${id}`);              
+       const token = localStorage.getItem('token');
+        const response = await axios.delete(`${API_URL}/${id}`, {
+            headers: {
+                'Authorization': token ? `Bearer ${token}` : undefined
+            }
+        });              
         return response.data;
         
     } catch (error) {
@@ -64,9 +70,26 @@ const deleteProduct = async (id) => {
     }
 };
 
+const createProduct = async (productData) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`${API_URL}/add`, productData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token ? `Bearer ${token}` : undefined
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error creating product:', error);
+        throw error;
+    }
+};
+
 export default {
     getProducts,
     getProductById,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    createProduct
 }

@@ -48,7 +48,13 @@ const LogInPage = () => {
         localStorage.setItem('token', result.token);
         const user = await UsersAPI.getUserProfile();     
         login(user, result.token); 
-        navigate("/");
+        console.log(user);
+        if (user.user_role === 'manager') {
+           navigate("/admin"); // Managers go to dashboard
+        } else {
+           navigate("/"); // Customers go to the catalog
+      }
+        // navigate("/");
       }
     } catch (err) {
       console.log(err);

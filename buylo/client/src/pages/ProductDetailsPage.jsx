@@ -11,20 +11,12 @@ const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?text=Desk+Lamp";
 
 import '../styles/ProductDetailsPage.css';
 
-import { useCart } from '../context/CartContext';
-import { useToast } from '../context/useToast';
-
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
   const [selectedQty, setSelectedQty] = useState(1);
 
   const { addItemToCart } = useCart();
-<<<<<<< HEAD
-  const { success } = useToast();
-
-=======
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
   // const [product,setProduct] = useState({})
   const [product, setProduct] = useState(null);
@@ -47,12 +39,7 @@ const ProductDetailsPage = () => {
       }
     };
     fetchProduct()
-<<<<<<< HEAD
-  },[id]);
-
-=======
   }, [id])
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
   if (loading) {
     return (
@@ -61,10 +48,6 @@ const ProductDetailsPage = () => {
       </div>
     );
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
   // Handle case where product isn't found
   if (!product) {
@@ -82,11 +65,7 @@ const ProductDetailsPage = () => {
 
   const handleAddToCart = () => {
     addItemToCart(product, Number(selectedQty));
-<<<<<<< HEAD
-    success(`${selectedQty} ${product.name} added to cart`);
-=======
     alert(`${selectedQty} ${product.name} added to cart`);
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
   };
 
   return (
@@ -132,11 +111,7 @@ const ProductDetailsPage = () => {
                 id="qty" 
                 value={selectedQty} 
                 // onChange={(e) => setSelectedQty(e.target.value)}
-<<<<<<< HEAD
-                 onChange={(e) => setSelectedQty(Number(e.target.value))}
-=======
                 onChange={(e) => setSelectedQty(Number(e.target.value))}
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
               >
                 {qtyOptions.map(num => (
                   <option key={num} value={num}>{num}</option>
@@ -144,10 +119,6 @@ const ProductDetailsPage = () => {
           </select>
           </div>
           <div className="action-row">
-<<<<<<< HEAD
-            {/* <button className="add-to-cart-large"> */}
-=======
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
             <button className="add-to-cart-large" onClick={handleAddToCart}>
                    <FiShoppingCart style={{ marginRight: '8px' }} />
                     ADD TO CART  

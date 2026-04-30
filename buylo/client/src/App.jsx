@@ -1,12 +1,9 @@
 import { useRoutes, useLocation  } from 'react-router-dom';
 import './App.css'
 import MainNav from './components/MainNav';
-<<<<<<< HEAD
 import ToastContainer from './components/ToastContainer';
 
-=======
 import ProtectedRoute from './components/ProtectedRoute';
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 import { useState } from 'react';
 
 import { 

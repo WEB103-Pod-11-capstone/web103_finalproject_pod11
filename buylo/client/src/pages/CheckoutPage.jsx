@@ -6,6 +6,10 @@ import '../styles/CheckoutPage.css';
 const CheckoutPage = () => {
   const { cartItems, total, clearCart } = useCart();
 
+<<<<<<< HEAD
+  // ADDED: form state for checkout fields
+=======
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
   const [formData, setFormData] = useState({
     fullName: '',
     address: '',
@@ -14,13 +18,25 @@ const CheckoutPage = () => {
     zipCode: '',
   });
 
+<<<<<<< HEAD
+  // ADDED: state for success/error handling
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // ADDED: if cart is empty and order is not placed, go back to cart
+=======
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
   if (cartItems.length === 0 && !orderPlaced) {
     return <Navigate to="/cart" />;
   }
 
+<<<<<<< HEAD
+  // ADDED: handle form changes
+=======
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -28,6 +44,10 @@ const CheckoutPage = () => {
     }));
   };
 
+<<<<<<< HEAD
+  // ADDED: handle checkout submit
+=======
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -47,6 +67,10 @@ const CheckoutPage = () => {
     setOrderPlaced(true);
   };
 
+<<<<<<< HEAD
+  // ADDED: success screen after order is placed
+=======
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
   if (orderPlaced) {
     return (
       <main className="checkout-container">
@@ -144,13 +168,21 @@ const CheckoutPage = () => {
               <span>
                 {item.name} × {item.quantity}
               </span>
+<<<<<<< HEAD
+              <span>${(Number(item.price) * Number(item.quantity)).toFixed(2)}</span>
+=======
               <span>${(item.price * item.quantity).toFixed(2)}</span>
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
             </div>
           ))}
 
           <div className="checkout-summary-total">
             <span>Total</span>
+<<<<<<< HEAD
+            <span>${Number(total).toFixed(2)}</span>
+=======
             <span>${total.toFixed(2)}</span>
+>>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
           </div>
         </aside>
       </div>

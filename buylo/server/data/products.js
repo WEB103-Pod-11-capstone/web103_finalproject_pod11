@@ -65,7 +65,7 @@ const products = [
     current_quantity: 12,
     category: "Lighting",
     description: "Architectural desk lamp with an adjustable arm.",
-    image_url: "https://placehold.co/400x500?text=Black+Table+Lamp",
+    image_url: "/products/matte-black-table-lamp.png"
   },
   {
     id: 8,
@@ -74,7 +74,7 @@ const products = [
     current_quantity: 6,
     category: "Lighting",
     description: "Hand-blown smoked glass globe with brass hardware.",
-    image_url: "https://placehold.co/400x500?text=Pendant+Light",
+    image_url: "/products/glass-pendant-light.png"
   },
   {
     id: 9,
@@ -83,7 +83,7 @@ const products = [
     current_quantity: 4,
     category: "Lighting",
     description: "Arched floor lamp with a linen drum shade.",
-    image_url: "https://placehold.co/400x500?text=Floor+Lamp",
+    image_url: "/products/modern-floor-lamp.png"
   },
 
   // CATEGORY 4: Wall Art
@@ -94,7 +94,7 @@ const products = [
     current_quantity: 8,
     category: "Wall Art",
     description: "Framed 24x36 abstract painting in earth tones.",
-    image_url: "https://placehold.co/400x500?text=Abstract+Art",
+    image_url: "/products/abstract-canvas-art.png"
   },
   {
     id: 11,
@@ -103,7 +103,7 @@ const products = [
     current_quantity: 10,
     category: "Wall Art",
     description: "Laser-cut geometric pattern made from dark walnut.",
-    image_url: "https://placehold.co/400x500?text=Geometric+Wall+Art",
+    image_url: "/products/geometric-wood-wall-decor.png"
   },
   {
     id: 12,
@@ -112,7 +112,7 @@ const products = [
     current_quantity: 20,
     category: "Wall Art",
     description: "Framed single-line drawing on textured paper.",
-    image_url: "https://placehold.co/400x500?text=Line+Sketch",
+    image_url: "/products/minimalist-line-sketch.png"
   },
 
   // CATEGORY 5: Kitchenware
@@ -123,7 +123,7 @@ const products = [
     current_quantity: 18,
     category: "Kitchenware",
     description: "Pre-seasoned 12-inch heavy-duty cast iron skillet.",
-    image_url: "https://placehold.co/400x500?text=Cast+Iron+Skillet",
+    image_url: "/products/cast-iron-skillet.png"
   },
   {
     id: 14,
@@ -132,7 +132,7 @@ const products = [
     current_quantity: 9,
     category: "Kitchenware",
     description: "Cool-surface white marble slab for rolling dough.",
-    image_url: "https://placehold.co/400x500?text=Marble+Slab",
+    image_url: "/products/marble-pastry-slab.png"
   },
   {
     id: 15,
@@ -141,8 +141,8 @@ const products = [
     current_quantity: 30,
     category: "Kitchenware",
     description: "Matte black ceramic dripper for manual coffee brewing.",
-    image_url: "https://placehold.co/400x500?text=Coffee+Pour-Over",
-  },
-]
+    image_url: "/products/ceramic-coffee-pour-over.png"
+  }
+];
 
 export default products

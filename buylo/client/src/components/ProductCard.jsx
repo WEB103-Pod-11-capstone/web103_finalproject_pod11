@@ -2,14 +2,15 @@ import React from 'react';
 import '../styles/ProductCard.css';
 import { Link } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi"; 
-
 import { useCart } from '../context/CartContext';
+import { useToast } from '../context/useToast';
 
-const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?text=Desk+Lamp";
+
 
 const ProductCard = ({ product }) => {
-
+  const FALLBACK_IMAGE_URL = `https://placehold.co/400x500?text=${product.name.replace(/\s+/g, '+')}`;
   const { addItemToCart } = useCart();
+  const { success } = useToast();
 
   const handleAddToCart = (e) => {
     // This is CRITICAL: It stops the Link from navigating 
@@ -18,10 +19,8 @@ const ProductCard = ({ product }) => {
     e.stopPropagation();
 
     addItemToCart(product, 1);
+    success(`${product.name} added to cart`);
 
-    alert(`${product.name} added to cart`);
-
-    
     console.log("Added to cart:", product.name);
   };
 

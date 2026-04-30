@@ -64,21 +64,7 @@ export const addNewProduct = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-export const getAllProducts = async (req, res) => {
-  try {
-    const result = await client.query(`
-        SELECT * FROM products
-        `);
 
-    if (result.rowCount === 0)
-      return res.status(400).json({ message: "No products available" });
-
-    return res.status(200).json(result.rows);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
-  }
-};
 
 export const getProductById = async (req, res) => {
   const { id } = req.params;

@@ -1,6 +1,8 @@
 import { useRoutes, useLocation  } from 'react-router-dom';
 import './App.css'
 import MainNav from './components/MainNav';
+import ToastContainer from './components/ToastContainer';
+
 import ProtectedRoute from './components/ProtectedRoute';
 import { useState } from 'react';
 
@@ -89,6 +91,8 @@ const App = () => {
       <footer className="container">
         <small>© 2026 Buylo • Minimalist Shopping</small>
       </footer>
+
+      <ToastContainer />
     </>
   );
 }

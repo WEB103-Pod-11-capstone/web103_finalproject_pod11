@@ -21,6 +21,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 /* Global Light Mode */
 @media (prefers-color-scheme: lightgray) {
   :root {

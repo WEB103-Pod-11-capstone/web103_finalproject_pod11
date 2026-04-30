@@ -5,6 +5,7 @@ import { FiShoppingCart } from "react-icons/fi";
 
 import { useCart } from '../context/CartContext';
 
+const FALLBACK_IMAGE_URL = "https://placehold.co/400x500?text=Desk+Lamp";
 
 const ProductCard = ({ product }) => {
 
@@ -28,7 +29,14 @@ const ProductCard = ({ product }) => {
     <Link to={`/product/${product.id}`} className="product-card-link">
     <article className="product-card">
       <div className="image-container">
-        <img src={product.image_url} alt={product.name} />
+        <img
+          src={product.image_url || FALLBACK_IMAGE_URL}
+          alt={product.name}
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = FALLBACK_IMAGE_URL;
+          }}
+        />
       </div>
       
       <div className="card-body">

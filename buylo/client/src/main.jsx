@@ -7,24 +7,16 @@ import '@picocss/pico'
 import './index.css'
 import App from './App.jsx'
 
-<<<<<<< HEAD
 import { CartProvider } from './context/CartContext.jsx';
-=======
-import { CartProvider } from './context/CartContext.jsx'; 
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
       <BrowserRouter>
         <CartProvider>
-<<<<<<< HEAD
           <ToastProvider>
             <App />
           </ToastProvider>
-=======
-          <App />
->>>>>>> 9f64f4fe711198f2254ec86276d8d24fb8451c14
         </CartProvider>
       </BrowserRouter>
     </AuthProvider>

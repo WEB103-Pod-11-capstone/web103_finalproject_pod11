@@ -13,7 +13,7 @@ export const addNewProduct = async (req, res) => {
   const imageUrl = image_url && isUrlValid(image_url)
     ? image_url
     : FALLBACK_IMAGE_URL + `text=${encodeURIComponent(name || 'Product')}`;
- console.log("Validated product data:", { name, price, current_quantity, category, description: descriptionText, imageUrl });
+
   try {
     //All fields validation || Passed ✅
     if (
@@ -48,7 +48,7 @@ export const addNewProduct = async (req, res) => {
         message: "Stock quantity must be a non-negative numerical value",
       });
     }
-    console.log("Validated product data:", { name, price, current_quantity, category, description: descriptionText, imageUrl });
+    
     const newProduct = await client.query(
       `
       INSERT INTO products(name, price, current_quantity, category, description, image_url)
@@ -65,7 +65,21 @@ export const addNewProduct = async (req, res) => {
   }
 };
 
+export const getAllProducts = async (req, res) => {
+  try {
+    const result = await client.query(`
+        SELECT * FROM products
+        `);
 
+    if (result.rowCount === 0)
+      return res.status(400).json({ message: "No products available" });
+
+    return res.status(200).json(result.rows);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 export const getProductById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -98,7 +112,7 @@ export const updateProductById = async (req, res) => {
     description,
     image_url,
   } = req.body;
-console.log("Received update data:", { id, name, price, current_quantity, category, description, image_url });
+
   try {
     if (
       !id ||

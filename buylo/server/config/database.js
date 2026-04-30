@@ -13,21 +13,21 @@ console.log({
 
 //Only for development. 
 // commented out for render.com deployment
-// export const client = new Client({
-//   host: process.env.DBHOST,
-//   user: process.env.DBUSER,
-//   password: process.env.DBPASSWORD,
-//   database: process.env.DBNAME,
-//   port: Number(process.env.DBPORT),
-//   ssl: { rejectUnauthorized: false },
-// })
+export const client = new Client({
+  host: process.env.DBHOST,
+  user: process.env.DBUSER,
+  password: process.env.DBPASSWORD,
+  database: process.env.DBNAME,
+  port: Number(process.env.DBPORT),
+  ssl: { rejectUnauthorized: false },
+})
 
 // need for prouction on render.com, but locally we can connect without ssl
-export const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-  // ssl: false,
-});
+// export const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: { rejectUnauthorized: false },
+//   // ssl: false,
+// });
 
 
 try {
